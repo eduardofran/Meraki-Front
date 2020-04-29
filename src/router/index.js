@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Signup from '../views/Signup.vue'
 import Login from '../views/Login.vue'
+import Events from '../views/Events.vue'
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,11 @@ const routes = [
     name: 'Login',
     meta: { layout: 'no-navbar' },
     component: Login
+  },
+  {
+    path: '/events',
+    name: 'events',
+    component: Events
   }
 ]
 

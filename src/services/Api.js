@@ -13,11 +13,14 @@ export default {
     })
     return response.data
   },
-  async login(user) {
+  async login (user) {
     const response = await API.post('/auth/login', {
       ...user
     })
     return response.data
+  },
+  async getAllEvents () {
+    const response = await API.get('/events')
+    return response.data
   }
-
 }

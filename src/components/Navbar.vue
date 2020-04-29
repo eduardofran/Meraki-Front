@@ -2,7 +2,7 @@
   <v-app-bar flat dense class="transparent">
     <v-tabs class="max">
       <v-tab to="/">Inicio</v-tab>
-      <v-tab>Voluntariados</v-tab>
+      <v-tab to= "/events">Voluntariados</v-tab>
       <v-tab v-if="existsToken">Favoritos</v-tab>
     </v-tabs>
 
