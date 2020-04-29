@@ -13,7 +13,7 @@ export default {
     })
     return response.data
   },
-  async login (user) {
+  async login(user) {
     const response = await API.post('/auth/login', {
       ...user
     })
