@@ -53,6 +53,7 @@ export default {
   text-decoration-line: none;
   .brand {
     color: #298b7f;
+    font-family: 'Quicksand', sans-serif;
   }
 }
 .max {
