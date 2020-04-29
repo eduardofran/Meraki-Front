@@ -4,24 +4,32 @@
     <v-content>
       <v-container>
         <v-row justify="center">
-          <v-col cols="5">
+          <v-col cols="12" sm="8" md="7" lg="5">
             <h1 class="mt-12">¡Bienvenido a Meraki!</h1>
             <br />
             <h2>Nos alegra que hayas llegado hasta aquí, ¡eso significa que estás a punto de comenzar una nueva aventura!</h2>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="12" sm="8" md="7" lg="5" >
             <v-card
               min-width="300px"
-              max-width="300px"
               class="mt-12 mx-auto pa-2 text-center"
               color="rgba(255, 255, 255, 0.75)"
             >
               <v-card-text class="py-0">
                 <v-form>
-                  <v-text-field label="Nombre" v-model="username" :rules="userRules" background-color="#FAFAFA"></v-text-field>
+                  <v-text-field
+                    label="Nombre"
+                    v-model="username"
+                    :rules="userRules"
+                    background-color="#FAFAFA"
+                  ></v-text-field>
 
-                  <v-text-field label="E-mail" v-model="email" :rules="emailRules"
-                  background-color="#FAFAFA"></v-text-field>
+                  <v-text-field
+                    label="E-mail"
+                    v-model="email"
+                    :rules="emailRules"
+                    background-color="#FAFAFA"
+                  ></v-text-field>
 
                   <v-text-field
                     label="Contraseña"
@@ -29,7 +37,8 @@
                     :type="showPassword ? 'text' : 'password'"
                     :rules="passwordRule"
                     :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                    @click:append="showPassword = !showPassword" background-color="#FAFAFA"
+                    @click:append="showPassword = !showPassword"
+                    background-color="#FAFAFA"
                   ></v-text-field>
                   <v-autocomplete
                     v-model="country"
@@ -54,7 +63,9 @@
                         v-model="date"
                         label="Fecha de nacimiento"
                         readonly
-                        v-on="on" background-color="#FAFAFA" append-icon="mdi-calendar"
+                        v-on="on"
+                        background-color="#FAFAFA"
+                        append-icon="mdi-calendar"
                       ></v-text-field>
                     </template>
                     <v-date-picker
@@ -72,7 +83,7 @@
               </v-card-actions>
               <v-text class="caption">
                 ¿Ya tienes cuenta?
-                <router-link to="/login">Accede a tu perfil aquí</router-link>
+                <router-link class="color" to="/login">Accede a tu perfil aquí</router-link>
               </v-text>
             </v-card>
           </v-col>
@@ -116,8 +127,8 @@ export default {
     Navbar
   },
   computed: {
-    countriesValues(){
-      return Object.values(countries)
+    countriesValues() {
+      return Object.values(countries);
     }
   },
   watch: {
@@ -155,5 +166,8 @@ export default {
   background-attachment: fixed;
   background-position: center;
   min-height: 100vh;
+}
+.color {
+  color: #298b7f;
 }
 </style>

@@ -2,11 +2,11 @@
   <div class="bg">
     <Navbar></Navbar>
     <v-content>
-      <v-container class="justify-end">
-        <v-row class="justify-end">
-          <v-col>
+      <v-container>
+        <v-row class="justify-center">
+          <v-col cols="12" sm="8" md="7" lg="5">
             <v-card
-              width="300px"
+              min-width="300px"
               class="mt-12 mx-auto pa-2 text-center"
               color="rgba(255, 255, 255, 0.75)"
             >
@@ -32,7 +32,7 @@
               </v-card-actions>
               <p class="caption">
                 ¿Aún no tienes cuenta?
-                <router-link to="/signup">Regístrate gratis aquí</router-link>
+                <router-link to="/signup" class="color">Regístrate gratis aquí</router-link>
               </p>
             </v-card>
           </v-col>
@@ -97,5 +97,8 @@ export default {
   background-attachment: fixed;
   background-position: center;
   min-height: 100vh;
+}
+.color {
+  color: #298B7F;
 }
 </style>
