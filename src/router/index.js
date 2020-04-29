@@ -24,11 +24,13 @@ const routes = [
   {
     path: '/signup',
     name: 'Signup',
+    meta: { layout: 'no-navbar' },
     component: Signup
   },
   {
     path: '/login',
     name: 'Login',
+    meta: { layout: 'no-navbar' },
     component: Login
   }
 ]
