@@ -19,17 +19,17 @@
 
     </v-card-text>
     <v-card-actions>
+      <v-btn  @click="Contac" small outlined rounded color="#298B7F">
+            Contactar<v-icon>mdi-phone</v-icon>
+          </v-btn>
       <v-btn
-        color="orange"
-        text
+        rounded
+        color="black"
+        dark
+        small
+        
       >
-        Share
-      </v-btn>
-      <v-btn
-        color="orange"
-        text
-      >
-        Explore
+        Saber más
       </v-btn>
     </v-card-actions>
   </v-card>
