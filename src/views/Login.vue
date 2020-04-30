@@ -14,16 +14,22 @@
                 <h2>Iniciar sesión</h2>
               </v-card-title>
               <v-card-text>
-                  <div id="err" v-if="userInvalid">Usuario no válido</div>
+                <div id="err" v-if="userInvalid">Usuario no válido</div>
                 <v-form>
-                  <v-text-field label="E-mail" v-model="email" :rules="emailRules" background-color="#FAFAFA"></v-text-field>
+                  <v-text-field
+                    label="E-mail"
+                    v-model="email"
+                    :rules="emailRules"
+                    background-color="#FAFAFA"
+                  ></v-text-field>
                   <v-text-field
                     label="Contraseña"
                     v-model="userPassword"
                     :type="showPassword ? 'text' : 'password'"
                     :rules="passwordRule"
                     :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                    @click:append="showPassword = !showPassword" background-color="#FAFAFA"
+                    @click:append="showPassword = !showPassword"
+                    background-color="#FAFAFA"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -80,7 +86,7 @@ export default {
             this.userInvalid = true;
           } else {
             localStorage.setItem("token", response.token);
-            // localStorage.setItem("id", response.id);
+            localStorage.setItem("name", response.name);
             this.$router.push("/");
           }
         })
@@ -99,6 +105,6 @@ export default {
   min-height: 100vh;
 }
 .color {
-  color: #298B7F;
+  color: #298b7f;
 }
 </style>

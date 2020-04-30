@@ -9,7 +9,7 @@
             <br />
             <h2>Nos alegra que hayas llegado hasta aquí, ¡eso significa que estás a punto de comenzar una nueva aventura!</h2>
           </v-col>
-          <v-col cols="12" sm="8" md="7" lg="5" >
+          <v-col cols="12" sm="8" md="7" lg="5">
             <v-card
               min-width="300px"
               class="mt-12 mx-auto pa-2 text-center"
@@ -151,6 +151,7 @@ export default {
       APIServices.signup(newUser)
         .then(response => {
           localStorage.setItem("token", response.token);
+          localStorage.setItem("name", response.name);
           this.$router.push("/");
         })
         .catch(err => console.log(err));

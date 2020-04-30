@@ -22,8 +22,8 @@
       <v-avatar color="red" size="30">
         <span class="white--text">CJ</span>
       </v-avatar>
-      <!-- {{name}} -->
-      Eduardo
+      {{name}}
+      
       <v-btn icon @click="logout">
         <v-icon>mdi-logout</v-icon>
       </v-btn>
@@ -33,9 +33,14 @@
 <script>
 export default {
   name: "Navbar",
+  data(){
+    return {
+      name: localStorage.getItem("name")
+    }
+  },
   computed: {
     existsToken() {
-      return localStorage.getItem("token");
+      return localStorage.getItem("token")
     }
   },
   methods: {
