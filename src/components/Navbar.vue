@@ -1,14 +1,14 @@
 <template>
   <div>
     <v-app-bar flat dense class="transparent">
-      <v-app-bar-nav-icon class="d-md-none " @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-     
+      <v-app-bar-nav-icon class="d-md-none" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+
         <v-tabs class="max d-none d-md-block d-print-block">
           <v-tab to="/">Inicio</v-tab>
           <v-tab to="/events">Voluntariados</v-tab>
           <v-tab v-if="existsToken">Favoritos</v-tab>
         </v-tabs>
-   
+
 
       <router-link to="/">
         <h2 class="brand">Meraki</h2>
@@ -113,7 +113,7 @@ export default {
 }
 .transparent {
   background-color:  !important;
-  
+
 }
 .v-navigation-drawer {
   width: 70% !important;
