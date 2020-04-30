@@ -1,7 +1,7 @@
 <template>
   <div>
-{{Events}}
-<Event v-for="event in Events" 
+<!-- {{Events}} -->
+<Event v-for="event in Events"
 :key="event._id"
 :eventsInfo="event"
 />
@@ -33,7 +33,7 @@ import Event from "../components/Event.vue";
     components:{
       Event
     }
-    
+
   }
 </script>
 
