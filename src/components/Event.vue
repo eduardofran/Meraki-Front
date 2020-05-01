@@ -1,11 +1,11 @@
 <template>
   <div>
-    <v-card class="mx-auto my-5" max-width="800" outlined color="#FFFFFF">
+    <v-card class="mx-auto my-2" max-width="800" min-width="300" outlined color="#FFFFFF">
       <v-row>
-        <v-col cols="5">
-          <v-img class height="300px" width="300px" :src="eventsInfo.mainPhoto"></v-img>
+        <v-col cols md="5">
+          <v-img min-height="300px" min-width="300px"  :src="eventsInfo.mainPhoto"></v-img>
         </v-col>
-        <v-col cols="7">
+        <v-col cols md="7">
           <v-btn absolute right top rounded icon x-large @click="isFav=!isFav">
             <v-icon v-if="isFav">mdi-heart</v-icon>
             <v-icon v-else>mdi-heart-outline</v-icon>
@@ -20,7 +20,6 @@
               :full-icon="fullIcon"
               :half-icon="halfIcon"
               :half-increments="halfIncrements"
-              :hover="hover"
               :readonly="readonly"
               :size="size"
               :dense="dense"
@@ -39,7 +38,7 @@
             </div>
           </v-card-text>
           <v-card-actions>
-            <v-btn @click="Contac" small outlined rounded color="#298B7F">
+            <v-btn small outlined rounded color="#298B7F">
               Contactar
               <v-icon class="ml-1">mdi-phone</v-icon>
             </v-btn>
