@@ -1,10 +1,62 @@
 <template>
   <div>
-<!-- {{Events}} -->
-<Event v-for="event in Events"
-:key="event._id"
-:eventsInfo="event"
-/>
+    <!-- {{Events}} -->
+    <v-container>
+      <v-row class="mt-5 mb-4" v-if="this.search != ''">
+        <v-col >
+        <h1>Estás en {{greatSearch}}</h1>
+        <v-spacer></v-spacer>
+        <h2>{{Events.length}} Resultados</h2>
+        </v-col>
+      </v-row>
+      <v-divider></v-divider>
+      <v-row>
+        {{countries}}
+        <v-col>FILTROS</v-col>
+        <v-col>
+          <v-row>
+            <v-col>
+              <v-text-field
+                class="search mt-5"
+                v-model="search"
+                rounded
+                solo
+                label="Buscar por país o ciudad"
+                outlined
+                prepend-inner-icon="mdi-magnify"
+                @keyup="getAllEvents"
+                dense
+                flat
+                color="#298B7F"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="3">
+              <v-select
+                class="mt-5"
+                lin
+                v-model="selected"
+                label="Ordenar por:"
+                dense
+                solo
+                rounded
+                outlined
+                flat
+                color="#298B7F"
+                :items="titleItems"
+              ></v-select>
+            </v-col>
+          </v-row>
+          <!-- {{oldFirst}} -->
+          <!-- {{newFirst}} -->
+          <!-- {{selected}} -->
+          <!-- {{search}} -->
+          <div class="noRes" v-if="Events == ''">
+            <h2>No se encontraron resultados para '{{search}}'</h2>
+          </div>
+          <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -12,31 +64,78 @@
 import APIServices from "../services/Api";
 import Event from "../components/Event.vue";
 
-  export default {
-    data () {
-     return{
-       Events:""
-     }
+export default {
+  data() {
+    return {
+      Events: [],
+      search: "",
+      selected: "",
+      items: [
+        { title: "Recientes", function: "newFirst", idx: 1 },
+        { title: "Antiguos", function: "oldFirst", idx: 2 },
+        { title: "Valorados", function: "rating", idx: 3 }
+      ],
+      offset: true
+    };
+  },
+  computed: {
+    titleItems() {
+      return this.items.map(e => e.title);
     },
-    methods: {
-      getAllEvents() {
-      APIServices.getAllEvents()
+    eventsSorted() {
+      const e = this.Events;
+      if (this.selected == "Antiguos") {
+        e.sort((a, b) => {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        });
+        return e;
+      }
+      if (this.selected == "Recientes") {
+        e.sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        return e;
+      }
+      return e;
+    },
+    greatSearch() {
+      let correctSearch = ''
+      correctSearch += this.search.slice(0,1).toUpperCase()
+      correctSearch += this.search.slice(1).toLowerCase()
+      return correctSearch
+    }
+  },
+  methods: {
+    getAllEvents() {
+      APIServices.getAllEvents(this.search)
         .then(events => {
-         this.Events = events
+          this.Events = events;
         })
         .catch(err => console.log(err));
     }
-    },
-    mounted(){
-      this.getAllEvents()
-    },
-    components:{
-      Event
-    }
-
+  },
+  mounted() {
+    this.getAllEvents(this.search);
+  },
+  components: {
+    Event
   }
+};
 </script>
 
 <style lang="scss" scoped>
-
+.search {
+  max-width: 600px;
+}
+#sort {
+  border: 1px solid black;
+  padding: 10px 20px;
+}
+.noRes {
+  width: 800px;
+  min-width: 300px;
+  text-align: center;
+  margin-top: 100px;
+  font-family: "QuickSand", sans-serif;
+}
 </style>
