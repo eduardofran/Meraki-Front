@@ -25,6 +25,8 @@
       </v-row>
         <v-divider></v-divider>
       <v-row>
+        <!-- FILTROS -->
+
         <v-col>FILTROS</v-col>
         <v-col>
           <v-row>
@@ -77,6 +79,8 @@
 <script>
 import APIServices from "../services/Api";
 import Event from "../components/Event.vue";
+import FilterTable from "../components/FilterTable.vue";
+
 
 export default {
   data() {
@@ -132,8 +136,17 @@ export default {
         if(!countries.includes(element))
         countries.push(element)
       });
-      
-      return countries.toString().replace(/,/g, ' y ')
+
+      let srtCountries = ''
+      countries.forEach((country, idx) => {
+        if(idx === countries.length -1){
+          srtCountries += ` y ${country}`
+        } else {
+          srtCountries += `, ${country}`
+        }
+      })
+ 
+      return srtCountries.slice(2)
     }
   },
   methods: {
@@ -165,7 +178,8 @@ export default {
     this.getAllEvents(this.search);
   },
   components: {
-    Event
+    Event,
+    FilterTable
   }
 };
 </script>
