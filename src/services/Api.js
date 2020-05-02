@@ -19,8 +19,8 @@ export default {
     })
     return response.data
   },
-  async getAllEvents (place) {
-    const response = await API.get(`/events?place=${place}`)
+  async getAllEvents (place, skills, offers, dispo) {
+    const response = await API.get(`/events?p=${place}&${skills}&${offers}&${dispo}`)
     return response.data
   }
 }
