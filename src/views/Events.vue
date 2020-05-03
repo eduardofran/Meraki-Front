@@ -37,10 +37,10 @@
       <v-row>
         <!-- FILTROS -->
 
-        <v-col>
+        <v-col xl="4">
           <FilterTable @filtered="getFilteredEventsByTable" />
         </v-col>
-        <v-col>
+        <v-col xl="8">
           <v-row>
             <v-col>
               <v-text-field
@@ -199,6 +199,8 @@ export default {
         )
           .then(events => {
             this.Events = events;
+        console.log(this.$router.app._route.params.place)
+
           })
           .catch(err => console.log(err));
       } else {
@@ -210,6 +212,7 @@ export default {
         )
           .then(events => {
             this.Events = events;
+        console.log(this.$router.app._route.params.place)
           })
           .catch(err => console.log(err));
       }
@@ -245,4 +248,7 @@ export default {
 //   right: 0;
 //   top:0;
 // }
+.container {
+  max-width: 1250px;
+}
 </style>
