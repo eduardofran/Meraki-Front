@@ -38,7 +38,11 @@ const routes = [
     path: '/events',
     name: 'events',
     component: Events,
-    alias: '/events/:place'
+  },
+  {
+    path: '/events/:query',
+    name: 'events',
+    component: Events,
   }
 ]
 
