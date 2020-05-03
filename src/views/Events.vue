@@ -38,7 +38,7 @@
         <!-- FILTROS -->
 
         <v-col>
-          <FilterTable @filtered="getFilteredEventsByTable"/>
+          <FilterTable @filtered="getFilteredEventsByTable" />
         </v-col>
         <v-col>
           <v-row>
@@ -163,7 +163,6 @@ export default {
         .catch(err => console.log(err));
     },
     getFilteredEventsByPlace() {
-
       APIServices.getAllEvents(this.search)
         .then(events => {
           this.Events = events;
@@ -172,18 +171,48 @@ export default {
           } else {
             this.isFiltered = true;
           }
-          this.$router.push(`/events/${this.search}`)
+          this.$router.push(`/events/${this.search}`);
           this.search = "";
-          console.log(this.$router.app._route.params.place)
         })
         .catch(err => console.log(err));
     },
-    getFilteredEventsByTable() {
-      APIServices.getAllEvents(this.$router.app._route.params.place, skills, offers, dispo)
-        .then(events => {
-          this.Events = events;
+    getFilteredEventsByTable(skills, offers, dispo) {
+      var skillsQuery = skills
+        .toString()
+        .replace(/ /g, "%20")
+        .replace(/,/g, "&");
+      var offersQuery = offers
+        .toString()
+        .replace(/ /g, "%20")
+        .replace(/,/g, "&");
+      var dispoQuery = dispo
+        .toString()
+        .replace(/ /g, "%20")
+        .replace(/,/g, "&");
+
+      if (this.$router.app._route.params.place == undefined) {
+        APIServices.getAllEvents(
+          this.search,
+          skillsQuery,
+          offersQuery,
+          dispoQuery
+        )
+          .then(events => {
+            this.Events = events;
           })
-        .catch(err => console.log(err));
+          .catch(err => console.log(err));
+      } else {
+        APIServices.getAllEvents(
+          this.$router.app._route.params.place,
+          skillsQuery,
+          offersQuery,
+          dispoQuery
+        )
+          .then(events => {
+            this.Events = events;
+          })
+          .catch(err => console.log(err));
+      }
     }
   },
   created() {

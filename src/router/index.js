@@ -37,12 +37,8 @@ const routes = [
   {
     path: '/events',
     name: 'events',
-    component: Events
-  },
-  {
-    path: `/events/:place`,
-    name: 'events',
-    component: Events
+    component: Events,
+    alias: '/events/:place'
   }
 ]
 
