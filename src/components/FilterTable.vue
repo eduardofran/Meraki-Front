@@ -1,8 +1,8 @@
 <template>
   <div>
-    {{yearS}}
-    {{skills.mod}}
-    {{host.mod}}
+    <!-- {{yearS}} -->
+    <!-- {{skills.mod}} -->
+    <!-- {{host.mod}} -->
     <v-expansion-panels class="mt-8" multiple accordion v-model="panel">
       <v-row no-gutters class="header">
         <v-col cols>
@@ -30,8 +30,13 @@
           </v-row>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-list-item-group multiple>
-            <v-list-item v-for="(host,idx) in host" :key="idx" v-model="host.mod" @click="filtered">
+                   <v-list-item-group multiple>
+            <v-list-item
+              v-for="(host,idx) in host"
+              :key="idx"
+              v-model="host.mod"
+              @click="filtered"
+            >
               <v-list-item-content>
                 <v-list-item-title>
                   <v-list-item-icon>
@@ -181,7 +186,9 @@ export default {
         mod: false,
         icon: "mdi-wrench-outline"
       },
-      { title: "Diseño Gráfico", mod: false, icon: "mdi-brush" },
+      {
+        title: "Diseño Gráfico",
+        mod: false, icon: "mdi-brush" },
       { title: "Fotografía", mod: false, icon: "mdi-camera" },
       {
         title: "Enseñanza escolar",
@@ -214,7 +221,7 @@ export default {
         icon: "mdi-format-paint"
       },
       {
-        title: "Grabación y edición de video",
+        title: "Grabación de video",
         mod: false,
         icon: "mdi-video-outline"
       },
