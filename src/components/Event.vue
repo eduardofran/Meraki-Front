@@ -30,11 +30,11 @@
           <v-card-text class="text--primary">
             <div>
               <v-icon>mdi-arrow-right</v-icon>
-              {{eventsInfo.workHours}} h/sem | {{singleSkills}}
+              {{eventsInfo.workHours}} h/sem | <span v-for="(skill,idx) in eventsInfo.skillsRequired" :key="idx">{{skill.title}} | </span>
             </div>
             <div>
               <v-icon>mdi-arrow-left</v-icon>
-              Al menos {{eventsInfo.minStay}} semanas | {{singleOffers}}
+              Al menos {{eventsInfo.minStay}} semanas | <span v-for="(offer,idx) in eventsInfo.offers" :key="idx">{{offer.title}} | </span>
             </div>
           </v-card-text>
           <v-card-actions>
@@ -43,7 +43,8 @@
               <v-icon class="ml-1">mdi-phone</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
-            <v-btn rounded color="black" dark small>Saber más</v-btn>
+            
+            <v-btn rounded color="black" dark small :to ="`event/${eventsInfo._id}`">Saber más</v-btn>
           </v-card-actions>
         </v-col>
       </v-row>

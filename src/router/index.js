@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Signup from '../views/Signup.vue'
 import Login from '../views/Login.vue'
 import Events from '../views/Events.vue'
+import Event from '../views/Event.vue'
 
 Vue.use(VueRouter)
 
@@ -37,12 +38,17 @@ const routes = [
   {
     path: '/events',
     name: 'events',
-    component: Events,
+    component: Events
   },
   {
     path: '/events/:query',
     name: 'events',
-    component: Events,
+    component: Events
+  },
+  {
+    path: '/event/:id',
+    name: 'event',
+    component: Event
   }
 ]
 

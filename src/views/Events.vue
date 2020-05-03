@@ -223,7 +223,8 @@ export default {
   },
   components: {
     Event,
-    FilterTable
+    FilterTable,
+  
   }
 };
 </script>
