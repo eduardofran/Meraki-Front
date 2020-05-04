@@ -14,7 +14,7 @@
                 <h2>Iniciar sesión</h2>
               </v-card-title>
               <v-card-text>
-                <div id="err" v-if="userInvalid">Usuario no válido</div>
+                <div id="err" v-if="userInvalid">Usuario o Contraseña incorrecta</div>
                 <v-form>
                   <v-text-field
                     label="E-mail"

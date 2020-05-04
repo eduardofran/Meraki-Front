@@ -44,7 +44,7 @@
             </v-btn>
             <v-spacer></v-spacer>
 
-            <v-btn rounded color="black" dark small :to ="`event/${eventsInfo._id}`">Saber más</v-btn>
+            <v-btn rounded color="black" dark small :to ="`events/${eventsInfo._id}`">Saber más</v-btn>
           </v-card-actions>
         </v-col>
       </v-row>
