@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     getFilteredEventsByPlace () {
-      this.$router.replace({ name: 'events', query: { p: this.search, ...this.$route.query } })
+      this.$router.replace({ name: 'events', query: { ...this.$route.query, p: this.search } })
     },
     getFilteredEventsByTable (skills, offers, dispo) {
       console.log(skills)
