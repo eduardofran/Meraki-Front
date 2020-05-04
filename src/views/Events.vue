@@ -85,112 +85,114 @@
 </template>
 
 <script>
-import APIServices from "../services/Api";
-import Event from "../components/Event.vue";
-import FilterTable from "../components/FilterTable.vue";
+import APIServices from '../services/Api'
+import Event from '../components/Event.vue'
+import FilterTable from '../components/FilterTable.vue'
 
 export default {
-  data() {
+  data () {
     return {
       Events: [],
-      search: "",
-      selected: "",
+      search: '',
+      selected: '',
       max: 20,
       isFiltered: false,
       items: [
-        { title: "Recientes", function: "newFirst", idx: 1 },
-        { title: "Antiguos", function: "oldFirst", idx: 2 },
-        { title: "Valorados", function: "rating", idx: 3 }
+        { title: 'Recientes', function: 'newFirst', idx: 1 },
+        { title: 'Antiguos', function: 'oldFirst', idx: 2 },
+        { title: 'Valorados', function: 'rating', idx: 3 }
       ],
       offset: true
-    };
-  },
-  computed: {
-    titleItems() {
-      return this.items.map(e => e.title);
-    },
-    maxlength() {
-      if (this.search.length > 20) {
-        return this.search;
-      }
-    },
-    eventsSorted() {
-      const e = this.Events;
-      if (this.selected == "Antiguos") {
-        e.sort((a, b) => {
-          return new Date(a.createdAt) - new Date(b.createdAt);
-        });
-        return e;
-      }
-      if (this.selected == "Recientes") {
-        e.sort((a, b) => {
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-        return e;
-      }
-      return e;
-    },
-    greatSearch() {
-      let correctSearch = "";
-      correctSearch += this.search.slice(0, 1).toUpperCase();
-      correctSearch += this.search.slice(1).toLowerCase();
-      return correctSearch;
-    },
-    countriesEvent() {
-      let countries = [];
-      const arrCountries = this.Events.map(e => e.country).forEach(element => {
-        if (!countries.includes(element)) countries.push(element);
-      });
-
-      let srtCountries = "";
-      countries.forEach((country, idx) => {
-        if (idx === countries.length - 1) {
-          srtCountries += ` y ${country}`;
-        } else {
-          srtCountries += `, ${country}`;
-        }
-      });
-
-      return srtCountries.slice(2);
     }
   },
+  computed: {
+    titleItems () {
+      return this.items.map(e => e.title)
+    },
+    maxlength () {
+      if (this.search.length > 20) {
+        return this.search
+      } else {
+        return this.search
+      }
+    },
+    eventsSorted () {
+      const e = this.Events
+      if (this.selected === 'Antiguos') {
+        e.sort((a, b) => {
+          return new Date(a.createdAt) - new Date(b.createdAt)
+        })
+        return e
+      }
+      if (this.selected === 'Recientes') {
+        e.sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt)
+        })
+        return e
+      }
+      return e
+    },
+    greatSearch () {
+      let correctSearch = ''
+      correctSearch += this.search.slice(0, 1).toUpperCase()
+      correctSearch += this.search.slice(1).toLowerCase()
+      return correctSearch
+    }
+    // countriesEvent () {
+    //   const countries = []
+    //   const arrCountries = this.Events.map(e => e.country).forEach(element => {
+    //     if (!countries.includes(element)) countries.push(element)
+    //   })
+
+    //   let srtCountries = ''
+    //   countries.forEach((country, idx) => {
+    //     if (idx === countries.length - 1) {
+    //       srtCountries += ` y ${country}`
+    //     } else {
+    //       srtCountries += `, ${country}`
+    //     }
+    //   })
+
+    //   return srtCountries.slice(2)
+    // }
+  },
   methods: {
-    getAllEvents() {
+    getAllEvents () {
       APIServices.getAllEvents(this.search)
         .then(events => {
-          this.Events = events;
+          this.Events = events
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     },
-    getFilteredEventsByPlace() {
+    getFilteredEventsByPlace () {
       APIServices.getAllEvents(this.search)
         .then(events => {
-          this.Events = events;
-          if (this.search == "") {
-            this.isFiltered = false;
+          this.Events = events
+          if (this.search === '') {
+            this.isFiltered = false
           } else {
-            this.isFiltered = true;
+            this.isFiltered = true
           }
-          this.$router.push(`/events/${this.search}`);
-          this.search = "";
+          this.$router.push(`/events/${this.search}`)
+          this.search = ''
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     },
-    getFilteredEventsByTable(skills, offers, dispo) {
+    getFilteredEventsByTable (skills, offers, dispo) {
       var skillsQuery = skills
         .toString()
-        .replace(/ /g, "%20")
-        .replace(/,/g, "&");
+        .replace(/ /g, '%20')
+        .replace(/,/g, '&')
       var offersQuery = offers
         .toString()
-        .replace(/ /g, "%20")
-        .replace(/,/g, "&");
+        .replace(/ /g, '%20')
+        .replace(/,/g, '&')
       var dispoQuery = dispo
         .toString()
-        .replace(/ /g, "%20")
-        .replace(/,/g, "&");
+        .replace(/ /g, '%20')
+        .replace(/,/g, '&')
 
-      if (this.$router.app._route.params.place == undefined) {
+      if (this.$router.app._route.params.place === undefined) {
         APIServices.getAllEvents(
           this.search,
           skillsQuery,
@@ -198,11 +200,10 @@ export default {
           dispoQuery
         )
           .then(events => {
-            this.Events = events;
-        console.log(this.$router.app._route.params.place)
-
+            this.Events = events
+            console.log(this.$router.app._route.params.place)
           })
-          .catch(err => console.log(err));
+          .catch(err => console.log(err))
       } else {
         APIServices.getAllEvents(
           this.$router.app._route.params.place,
@@ -211,22 +212,22 @@ export default {
           dispoQuery
         )
           .then(events => {
-            this.Events = events;
-        console.log(this.$router.app._route.params.place)
+            this.Events = events
+            console.log(this.$router.app._route.params.place)
           })
-          .catch(err => console.log(err));
+          .catch(err => console.log(err))
       }
     }
   },
-  created() {
-    this.getAllEvents(this.search);
+  created () {
+    this.getAllEvents(this.search)
   },
   components: {
     Event,
-    FilterTable,
-  
+    FilterTable
+
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

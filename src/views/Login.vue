@@ -49,51 +49,51 @@
 </template>
 
 <script>
-import APIServices from "../services/Api";
-import Navbar from "../components/Navbar.vue";
+import APIServices from '../services/Api'
+import Navbar from '../components/Navbar.vue'
 
 export default {
-  name: "Login",
-  data() {
+  name: 'Login',
+  data () {
     return {
       userInvalid: false,
       showPassword: false,
-      userPassword: "",
+      userPassword: '',
       passwordRule: [
-        v => !!v || "La contraseña es obligatoria",
+        v => !!v || 'La contraseña es obligatoria',
         v =>
-          v.length >= 5 || "La contraseña debe contener al menos 6 caracteres"
+          v.length >= 5 || 'La contraseña debe contener al menos 6 caracteres'
       ],
-      email: "",
+      email: '',
       emailRules: [
-        v => !!v || "El email es necesario",
-        v => /.+@.+\..+/.test(v) || "Formato de email incorrecto"
+        v => !!v || 'El email es necesario',
+        v => /.+@.+\..+/.test(v) || 'Formato de email incorrecto'
       ]
-    };
+    }
   },
   components: {
     Navbar
   },
   methods: {
-    login() {
+    login () {
       const user = {
         email: this.email,
         password: this.userPassword
-      };
+      }
       APIServices.login(user)
         .then(response => {
           if (response.error) {
-            this.userInvalid = true;
+            this.userInvalid = true
           } else {
-            localStorage.setItem("token", response.token);
-            localStorage.setItem("name", response.name);
-            this.$router.push("/");
+            localStorage.setItem('token', response.token)
+            localStorage.setItem('name', response.name)
+            this.$router.push('/')
           }
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

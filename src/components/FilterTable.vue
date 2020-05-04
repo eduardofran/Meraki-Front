@@ -164,166 +164,168 @@ export default {
     isOpen: true,
     host: [
       {
-        title: "Habitación individual",
-        mod: "Habitación_individual",
-        icon: "mdi-account"
+        title: 'Habitación individual',
+        mod: 'Habitación_individual',
+        icon: 'mdi-account'
       },
       {
-        title: "Habitación compartida",
-        mod: "Habitación_compartida",
-        icon: "mdi-account-multiple"
+        title: 'Habitación compartida',
+        mod: 'Habitación_compartida',
+        icon: 'mdi-account-multiple'
       },
       {
-        title: "Habitación de equipo",
-        mod: "Habitación_de_equipo",
-        icon: "mdi-account-multiple-plus"
+        title: 'Habitación de equipo',
+        mod: 'Habitación_de_equipo',
+        icon: 'mdi-account-multiple-plus'
       },
-      { title: "Camping", mod: "Camping", icon: "mdi-image-filter-hdr" }
+      { title: 'Camping', mod: 'Camping', icon: 'mdi-image-filter-hdr' }
     ],
     skills: [
       {
-        title: "Mantenimiento",
+        title: 'Mantenimiento',
         mod: false,
-        icon: "mdi-wrench-outline"
+        icon: 'mdi-wrench-outline'
       },
       {
-        title: "Diseño Gráfico",
-        mod: false, icon: "mdi-brush" },
-      { title: "Fotografía", mod: false, icon: "mdi-camera" },
-      {
-        title: "Enseñanza escolar",
+        title: 'Diseño Gráfico',
         mod: false,
-        icon: "mdi-book-open-page-variant"
+        icon: 'mdi-brush'
+      },
+      { title: 'Fotografía', mod: false, icon: 'mdi-camera' },
+      {
+        title: 'Enseñanza escolar',
+        mod: false,
+        icon: 'mdi-book-open-page-variant'
       },
       {
-        title: "Entretenimiento deportivo",
+        title: 'Entretenimiento deportivo',
         mod: false,
-        icon: "mdi-soccer"
+        icon: 'mdi-soccer'
       },
       {
-        title: "Tareas domésticas",
+        title: 'Tareas domésticas',
         mod: false,
-        icon: "mdi-sofa"
+        icon: 'mdi-sofa'
       },
       {
-        title: "Enseñar idiomas",
+        title: 'Enseñar idiomas',
         mod: false,
-        icon: "mdi-google-translate"
+        icon: 'mdi-google-translate'
       },
       {
-        title: "Informática",
+        title: 'Informática',
         mod: false,
-        icon: "mdi-gesture-tap-button"
+        icon: 'mdi-gesture-tap-button'
       },
       {
-        title: "Pintura y decoración",
+        title: 'Pintura y decoración',
         mod: false,
-        icon: "mdi-format-paint"
+        icon: 'mdi-format-paint'
       },
       {
-        title: "Grabación de video",
+        title: 'Grabación de video',
         mod: false,
-        icon: "mdi-video-outline"
+        icon: 'mdi-video-outline'
       },
       {
-        title: "Cuidado infantil",
+        title: 'Cuidado infantil',
         mod: false,
-        icon: "mdi-baby-face-outline"
+        icon: 'mdi-baby-face-outline'
       },
       {
-        title: "Cuidado de animales",
+        title: 'Cuidado de animales',
         mod: false,
-        icon: "mdi-dog-side"
+        icon: 'mdi-dog-side'
       },
       {
-        title: "Entretenimiento musical",
+        title: 'Entretenimiento musical',
         mod: false,
-        icon: "mdi-music-note-outline"
+        icon: 'mdi-music-note-outline'
       },
-      { title: "Jardinería", mod: false, icon: "mdi-flower-outline" },
-      { title: "Bartender", mod: false, icon: "mdi-glass-cocktail" }
+      { title: 'Jardinería', mod: false, icon: 'mdi-flower-outline' },
+      { title: 'Bartender', mod: false, icon: 'mdi-glass-cocktail' }
     ],
     meals: [
       {
-        title: "Desayuno",
-        mod: "Desayuno",
-        icon: "mdi-coffee-outline"
+        title: 'Desayuno',
+        mod: 'Desayuno',
+        icon: 'mdi-coffee-outline'
       },
       {
-        title: "Almuerzo",
-        mod: "Almuerzo",
-        icon: "mdi-silverware"
+        title: 'Almuerzo',
+        mod: 'Almuerzo',
+        icon: 'mdi-silverware'
       },
       {
-        title: "Cena",
-        mod: "Cena",
-        icon: "mdi-silverware-fork-knife"
+        title: 'Cena',
+        mod: 'Cena',
+        icon: 'mdi-silverware-fork-knife'
       },
-      { title: "Todo incluido", mod: "Todo_incluido", icon: "mdi-infinity" }
+      { title: 'Todo incluido', mod: 'Todo_incluido', icon: 'mdi-infinity' }
     ],
     year: [
-      { title: "Enero", mod: false },
-      { title: "Febrero", mod: false },
-      { title: "Marzo", mod: false },
-      { title: "Abril", mod: false },
-      { title: "Mayo", mod: false },
-      { title: "Junio", mod: false },
-      { title: "Julio", mod: false },
-      { title: "Agosto", mod: false },
-      { title: "Septiembre", mod: false },
-      { title: "Octubre", mod: false },
-      { title: "Noviembre", mod: false },
-      { title: "Diciembre", mod: false }
+      { title: 'Enero', mod: false },
+      { title: 'Febrero', mod: false },
+      { title: 'Marzo', mod: false },
+      { title: 'Abril', mod: false },
+      { title: 'Mayo', mod: false },
+      { title: 'Junio', mod: false },
+      { title: 'Julio', mod: false },
+      { title: 'Agosto', mod: false },
+      { title: 'Septiembre', mod: false },
+      { title: 'Octubre', mod: false },
+      { title: 'Noviembre', mod: false },
+      { title: 'Diciembre', mod: false }
     ]
   }),
   computed: {
-    yearS() {
-      var dispoQuery = this.year;
+    yearS () {
+      var dispoQuery = this.year
       var foo = dispoQuery.map(element => {
-        return element.mod;
-      });
-      return foo;
+        return element.mod
+      })
+      return foo
     }
   },
   methods: {
-    filtered() {
+    filtered () {
       // --------- SKILLS ----------->
       var skillsQuery = this.skills
         .filter(e => {
-          return e.mod === true;
+          return e.mod === true
         })
         .map(e => {
-          return `s=${e.title}`;
-        });
+          return `s=${e.title}`
+        })
       // --------- OFFERS ----------->
       var offersQuery = [...this.host, ...this.meals]
         .filter(e => {
-          return e.mod === true;
+          return e.mod === true
         })
         .map(e => {
-          return `o=${e.title}`;
-        });
+          return `o=${e.title}`
+        })
       // --------- DISPO ----------->
       var dispoQuery = this.year
         .filter(e => {
-          return e.mod === true;
+          return e.mod === true
         })
         .map(e => {
-          return `d=${e.title}`;
-        });
+          return `d=${e.title}`
+        })
       // ----------- SEND ------------>
-      this.$emit("filtered", skillsQuery, offersQuery, dispoQuery);
+      this.$emit('filtered', skillsQuery, offersQuery, dispoQuery)
     },
-    none() {
-      this.panel = [];
-      this.isOpen = false;
+    none () {
+      this.panel = []
+      this.isOpen = false
     },
-    all() {
-      this.panel = [0, 1, 2, 3];
-      this.isOpen = true;
+    all () {
+      this.panel = [0, 1, 2, 3]
+      this.isOpen = true
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

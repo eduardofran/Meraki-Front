@@ -2,7 +2,7 @@
   <div>
     <v-container>
       <v-row>
-        
+
           <v-card color='#7FCBAF' class="rounded"  >
         <v-row>
 
@@ -10,8 +10,8 @@
   <v-card-title class="mt-12 ml-12 pt-12">
    <h2>
      Viaja. Explora. Ayuda.
-     </h2> 
-     
+     </h2>
+
   </v-card-title>
   <v-card-subtitle class="mt-4 ml-12 fcolor">
     <h2 >
@@ -19,7 +19,6 @@
 <br>
 Aquí encontrarás la posibilidad de dar y recibir  ayuda de forma sencilla al mismo tiempo que  descubres todos los rincones del planeta.
     </h2>
-
 
   </v-card-subtitle>
 </v-col>
@@ -29,9 +28,9 @@ Aquí encontrarás la posibilidad de dar y recibir  ayuda de forma sencilla al m
   </span>
 </v-col>
         </v-row>
-  
+
           </v-card>
-       
+
       </v-row>
     </v-container>
   </div>
@@ -40,16 +39,15 @@ Aquí encontrarás la posibilidad de dar y recibir  ayuda de forma sencilla al m
 <script>
 // @ is an alias to /src
 
-
 export default {
   name: 'Home'
-  
+
 }
 </script>
 <style lang="scss" scoped>
 * {
   font-family: 'Quicksand', sans-serif;
- 
+
 }
 .fcolor h2 {
   color : white ;

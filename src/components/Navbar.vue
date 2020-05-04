@@ -9,7 +9,6 @@
           <v-tab v-if="existsToken">Favoritos</v-tab>
         </v-tabs>
 
-
       <router-link to="/">
         <h2 class="brand">Meraki</h2>
       </router-link>
@@ -74,31 +73,31 @@
 </template>
 <script>
 export default {
-  name: "Navbar",
-  data() {
+  name: 'Navbar',
+  data () {
     return {
-      name: localStorage.getItem("name"),
+      name: localStorage.getItem('name'),
       drawer: false,
       group: null
-    };
+    }
   },
   computed: {
-    existsToken() {
-      return localStorage.getItem("token");
+    existsToken () {
+      return localStorage.getItem('token')
     }
   },
   methods: {
-    logout() {
-      localStorage.clear();
-      this.$router.push("/login");
+    logout () {
+      localStorage.clear()
+      this.$router.push('/login')
     }
   },
   watch: {
-    group() {
-      this.drawer = false;
+    group () {
+      this.drawer = false
     }
   }
-};
+}
 </script>
  <style lang="scss" scoped>
 * {

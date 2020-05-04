@@ -25,7 +25,7 @@
                     :background-color="bgColor"
                     class="mt-2"
                   ></v-rating>
-        
+
                 </span>
                 <v-card-title class="pb-7"><h2>
                   {{event.title}}
@@ -61,7 +61,7 @@
 <h2 >Qué necesita</h2>
 </v-card-title>
 <row class="d-flex">
-<h3 v-for="(skill,idx) in event.skillsRequired" :key="idx" class="text-center mx-12 my-10"> 
+<h3 v-for="(skill,idx) in event.skillsRequired" :key="idx" class="text-center mx-12 my-10">
   <v-icon size="60px" color="#298B7F">{{skill.icon}}</v-icon>
   <div>
   {{skill.title}}
@@ -83,7 +83,7 @@
 <h2 >Qué ofrece</h2>
 </v-card-title>
 <row class="d-flex">
-<h3 v-for="(offer,idx) in event.offers" :key="idx" class="text-center mx-12 my-10"> 
+<h3 v-for="(offer,idx) in event.offers" :key="idx" class="text-center mx-12 my-10">
   <v-icon size="60px" color="#298B7F">{{offer.icon}}</v-icon>
   <div>
   {{offer.title}}
@@ -101,15 +101,15 @@
 </template>
 
 <script>
-import APIServices from "../services/Api";
-import goBack from "../components/Back.vue";
+import APIServices from '../services/Api'
+import goBack from '../components/Back.vue'
 
 export default {
-  data() {
+  data () {
     return {
-      event: "",
+      event: '',
       isFav: false,
-       emptyIcon: 'mdi-star-outline',
+      emptyIcon: 'mdi-star-outline',
       fullIcon: 'mdi-star',
       halfIcon: 'mdi-star-half-full',
       halfIncrements: true,
@@ -119,23 +119,23 @@ export default {
       size: 28,
       dense: true,
       color: 'yellow',
-      bgColor: 'black',
-    };
+      bgColor: 'black'
+    }
   },
   components: {
     goBack
   },
-  created() {
+  created () {
     APIServices.getEvent(this.$route.params.id)
       .then(result => {
-        this.event = result;
+        this.event = result
       })
       .catch(error => {
-        console.log(error);
-      });
-  },
-  
-};
+        console.log(error)
+      })
+  }
+
+}
 </script>
 
 <style lang="scss" scoped>

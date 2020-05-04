@@ -94,70 +94,70 @@
 </template>
 
 <script>
-import APIServices from "../services/Api";
-import Navbar from "../components/Navbar.vue";
-import countries from "../assets/countries.json";
+import APIServices from '../services/Api'
+import Navbar from '../components/Navbar.vue'
+import countries from '../assets/countries.json'
 
 export default {
-  data() {
+  data () {
     return {
       showPassword: false,
-      userPassword: "",
+      userPassword: '',
       passwordRule: [
-        v => !!v || "La contraseña es obligatoria",
+        v => !!v || 'La contraseña es obligatoria',
         v =>
-          v.length >= 6 || "La contraseña debe contener al menos 6 caracteres"
+          v.length >= 6 || 'La contraseña debe contener al menos 6 caracteres'
       ],
-      username: "",
-      userRules: [v => !!v || "Es necesario el nombre"],
-      email: "",
+      username: '',
+      userRules: [v => !!v || 'Es necesario el nombre'],
+      email: '',
       emailRules: [
-        v => !!v || "El email es necesario",
-        v => /.+@.+\..+/.test(v) || "Formato de email incorrecto"
+        v => !!v || 'El email es necesario',
+        v => /.+@.+\..+/.test(v) || 'Formato de email incorrecto'
       ],
       countries,
       country: null,
-      items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-      countryRules: [v => !!v || "Selecciona tu país de residencia"],
+      items: ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+      countryRules: [v => !!v || 'Selecciona tu país de residencia'],
       date: null,
       menu: false
-    };
+    }
   },
   components: {
     Navbar
   },
   computed: {
-    countriesValues() {
-      return Object.values(countries);
+    countriesValues () {
+      return Object.values(countries)
     }
   },
   watch: {
-    menu(val) {
-      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
+    menu (val) {
+      val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
     }
   },
   methods: {
-    save(date) {
-      this.$refs.menu.save(date);
+    save (date) {
+      this.$refs.menu.save(date)
     },
-    signup() {
+    signup () {
       const newUser = {
         name: this.username,
         email: this.email,
         password: this.userPassword,
         country: this.country,
         birthday: this.date
-      };
+      }
       APIServices.signup(newUser)
         .then(response => {
-          localStorage.setItem("token", response.token);
-          localStorage.setItem("name", response.name);
-          this.$router.push("/");
+          localStorage.setItem('token', response.token)
+          localStorage.setItem('name', response.name)
+          this.$router.push('/')
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

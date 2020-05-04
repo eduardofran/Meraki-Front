@@ -43,7 +43,7 @@
               <v-icon class="ml-1">mdi-phone</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
-            
+
             <v-btn rounded color="black" dark small :to ="`event/${eventsInfo._id}`">Saber más</v-btn>
           </v-card-actions>
         </v-col>
@@ -54,8 +54,8 @@
 
 <script>
 export default {
-  name: "Event",
-  data() {
+  name: 'Event',
+  data () {
     return {
       isFav: false,
       // PROPS RATING
@@ -69,21 +69,21 @@ export default {
       size: 28,
       dense: true,
       color: 'yellow',
-      bgColor: 'black',
-    };
+      bgColor: 'black'
+    }
   },
   props: {
     eventsInfo: Object
   },
   computed: {
-    singleSkills: function() {
-      return this.eventsInfo.skillsRequired.toString().replace(/,/g, " | ");
+    singleSkills: function () {
+      return this.eventsInfo.skillsRequired.toString().replace(/,/g, ' | ')
     },
-    singleOffers: function() {
-      return this.eventsInfo.offers.toString().replace(/,/g, " | ");
+    singleOffers: function () {
+      return this.eventsInfo.offers.toString().replace(/,/g, ' | ')
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
