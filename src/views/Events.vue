@@ -137,24 +137,24 @@ export default {
       correctSearch += this.search.slice(0, 1).toUpperCase()
       correctSearch += this.search.slice(1).toLowerCase()
       return correctSearch
+    },
+    countriesEvent () {
+      const countries = []
+      const arrCountries = this.Events.map(e => e.country).forEach(element => {
+        if (!countries.includes(element)) countries.push(element)
+      })
+
+      let srtCountries = ''
+      countries.forEach((country, idx) => {
+        if (idx === countries.length - 1) {
+          srtCountries += ` y ${country}`
+        } else {
+          srtCountries += `, ${country}`
+        }
+      })
+
+      return srtCountries.slice(2)
     }
-    // countriesEvent () {
-    //   const countries = []
-    //   const arrCountries = this.Events.map(e => e.country).forEach(element => {
-    //     if (!countries.includes(element)) countries.push(element)
-    //   })
-
-    //   let srtCountries = ''
-    //   countries.forEach((country, idx) => {
-    //     if (idx === countries.length - 1) {
-    //       srtCountries += ` y ${country}`
-    //     } else {
-    //       srtCountries += `, ${country}`
-    //     }
-    //   })
-
-    //   return srtCountries.slice(2)
-    // }
   },
   methods: {
     getAllEvents () {

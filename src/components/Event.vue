@@ -40,7 +40,7 @@
           <v-card-actions>
             <v-btn small outlined rounded color="#298B7F">
               Contactar
-              <v-icon class="ml-1">mdi-phone</v-icon>
+              <v-icon class="ml-2">mdi-email</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
 
