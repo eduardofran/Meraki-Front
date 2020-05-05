@@ -23,7 +23,7 @@ export default {
   async getAllEvents (query) {
     let str = ''
     for (const q in query) {
-      str += `${q}=${query[q]}`
+      str += `${q}=${query[q]}&`
     }
     const response = await API.get(`/events?${str}`)
     return response.data

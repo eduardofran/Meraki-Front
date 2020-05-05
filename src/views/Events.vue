@@ -34,7 +34,7 @@
     <v-divider></v-divider>
     <v-row id="filtros">
       <v-col xl="4">
-        <FilterTable @filtered="getFilteredEventsByTable" />
+        <FilterTable @filtered=" getFilteredEvents" />
       </v-col>
       <v-col xl="8">
         <v-row>
@@ -133,31 +133,35 @@ export default {
     getFilteredEventsByPlace () {
       this.$router.replace({ name: 'events', query: { ...this.$route.query, p: this.search } })
     },
-    getFilteredEventsByTable (skills, offers, dispo) {
-      console.log(skills)
-      var skillsQuery = skills.toString().replace(/ /g, '%20').replace(/,/g, '&')
-      var offersQuery = offers.toString().replace(/ /g, '%20').replace(/,/g, '&')
-      var dispoQuery = dispo.toString().replace(/ /g, '%20').replace(/,/g, '&')
-
-      if (this.$router.app._route.params.place === undefined) {
-        APIServices
-          .getAllEvents(this.search, skillsQuery, offersQuery, dispoQuery)
-          .then(events => {
-            this.Events = events
-            console.log(this.$router.app._route.params.place)
-          })
-          .catch(err => console.log(err))
-      } else {
-        APIServices.getAllEvents(this.$router.app._route.params.place, skillsQuery, offersQuery, dispoQuery)
-          .then(events => {
-            this.Events = events
-            console.log(this.$router.app._route.params.place)
-          })
-          .catch(err => console.log(err))
-      }
+    getFilteredEvents (skills, offers, dispo) {
+      this.$router.replace({ name: 'events', query: { ...this.$route.query, s: skills } })
     },
+    // getFilteredEventsByTable (skills, offers, dispo) {
+    //   console.log(skills)
+    //   var skillsQuery = skills.toString().replace(/ /g, '%20').replace(/,/g, '&')
+    //   var offersQuery = offers.toString().replace(/ /g, '%20').replace(/,/g, '&')
+    //   var dispoQuery = dispo.toString().replace(/ /g, '%20').replace(/,/g, '&')
+
+    //   if (this.$router.app._route.params.place === undefined) {
+    //     APIServices
+    //       .getAllEvents(this.search, skillsQuery, offersQuery, dispoQuery)
+    //       .then(events => {
+    //         this.Events = events
+    //         console.log(this.$router.app._route.params.place)
+    //       })
+    //       .catch(err => console.log(err))
+    //   } else {
+    //     APIServices.getAllEvents(this.$router.app._route.params.place, skillsQuery, offersQuery, dispoQuery)
+    //       .then(events => {
+    //         this.Events = events
+    //         console.log(this.$router.app._route.params.place)
+    //       })
+    //       .catch(err => console.log(err))
+    //   }
+    // },
     async getEvents () {
       this.search = this.$route.query.p
+      console.log(this.$route.query)
       this.Events = await APIServices.getAllEvents(this.$route.query)
     }
   },

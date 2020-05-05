@@ -35,7 +35,7 @@
               v-for="(host,idx) in host"
               :key="idx"
               v-model="host.mod"
-              @click="filtered"
+              @click="filtered(host.title)"
             >
               <v-list-item-content>
                 <v-list-item-title>
@@ -69,7 +69,7 @@
             <v-list-item
               v-for="(skill, idx) in skills"
               :key="idx"
-              @click="filtered"
+              @click="filtered(skill)"
               v-model="skill.mod"
             >
               <v-list-item-content>
@@ -230,24 +230,32 @@ export default {
     this.skills = this.skills.map(skill => ({ mod: false, ...skill }))
   },
   methods: {
-    filtered () {
+    filtered (queryObj) {
+      console.log(queryObj)
       // --------- SKILLS ----------->
-      var skillsQuery = this.skills
-        .filter(e => { return e.mod === true })
-        .map(e => { return `s=${e.title}` })
+      // var skillsQuery = this.skills
+      //   .filter(e => { return e.mod === true })
+      //   .map(e => { return `s=${e.title}` })
 
-      // --------- OFFERS ----------->
-      var offersQuery = [...this.host, ...this.meals]
-        .filter(e => { return e.mod === true })
-        .map(e => { return `o=${e.title}` })
+      // // --------- OFFERS ----------->
+      // var offersQuery = [...this.host, ...this.meals]
+      //   .filter(e => { return e.mod === true })
+      //   .map(e => { return `o=${e.title}` })
 
-      // --------- DISPO ----------->
-      var dispoQuery = this.year
-        .filter(e => { return e.mod === true })
-        .map(e => { return `d=${e.title}` })
-
+      // // --------- DISPO ----------->
+      // var dispoQuery = this.year
+      //   .filter(e => { return e.mod === true })
+      //   .map(e => { return `d=${e.title}` })
+      // ----------NEWQUERY -------------------->
+      if (queryObj.mod) {
+        var queryFilter = {
+          s: queryObj._id
+        }
+      } else {
+        queryFilter = { s: '' }
+      }
       // ----------- SEND ------------>
-      this.$emit('filtered', skillsQuery, offersQuery, dispoQuery)
+      this.$emit('filtered', skills, offers, dispo)
     },
     none () {
       this.panel = []
