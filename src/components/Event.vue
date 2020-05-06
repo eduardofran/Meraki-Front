@@ -96,7 +96,13 @@ export default {
       const favObj = {
         favorite: id
       }
-      APIServices.addFavorites(favObj).then(response => console.log(response)).catch(error => console.log(error))
+      if (!this.isFav) {
+        APIServices.deleteFavorite(id).then(response => console.log(response)).catch(error => console.log(error))
+        console.log('DELETE')
+      } else {
+        APIServices.addFavorites(favObj).then(response => console.log(response)).catch(error => console.log(error))
+        console.log('ADD')
+      }
     }
   }
 }
