@@ -6,6 +6,14 @@ const API = axios.create({
     'Content-Type': 'application/json'
   }
 })
+function queryObj2queryStr (queryObj) {
+  let queryStr = ''
+  for (const q in queryObj) {
+    queryStr += `${q}=${queryObj[q]}&`
+  }
+  return queryStr
+}
+
 export default {
   async signup (newUser) {
     const response = await API.post('/auth/signup', {
@@ -19,10 +27,12 @@ export default {
     })
     return response.data
   },
-  async getAllEvents (place, skills, offers, dispo) {
-    // console.log(place)
-    // console.log(offers)
-    const response = await API.get(`/events?p=${place}&${skills}&${offers}&${dispo}`)
+  async getAllEvents (queryObj) {
+    const response = await API.get(`/events?${queryObj2queryStr(queryObj)}`)
+    return response.data
+  },
+  async getSkills () {
+    const response = await API.get('/skills')
     return response.data
   },
   async getEvent (id) {

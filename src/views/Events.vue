@@ -1,231 +1,203 @@
 <template>
-  <div>
-    <!-- {{Events}} -->
-    <v-container>
-      <v-row class="mt-5 mb-4">
-        <v-col>
-          <span v-if="Events == ''">
-            <v-row>
-              <v-col cols="12" sm="8">
-                <h1>Ehh...Parece que estás un poco perdido</h1>
-              </v-col>
-              <v-col cols="12" sm="4" class="text-right">
-                <h2>{{Events.length}} Resultados</h2>
-              </v-col>
-            </v-row>
-          </span>
-          <span v-else>
-            <v-row>
-              <v-col cols="12" sm="8">
-                <h1>
-                  Estás en
-                  <span v-if="isFiltered">{{countriesEvent}}</span>
-                  <span v-else>
-                    todas partes.
-                    <!-- <v-img class="absolute" src="https://media.giphy.com/media/UvDcnQCKu0Mwanoygf/giphy.gif" max-width="200px"></v-img> -->
-                  </span>
-                </h1>
-              </v-col>
-              <v-col cols="12" sm="4" class="text-right mt-2">
-                <h2>{{Events.length}} Resultados</h2>
-              </v-col>
-            </v-row>
-          </span>
-        </v-col>
-      </v-row>
-      <v-divider></v-divider>
-      <v-row>
-        <!-- FILTROS -->
+  <v-container>
+    <EventsTopBar :events="eventsSorted" :isFiltered="true" />
+    <v-divider></v-divider>
 
-        <v-col xl="4">
-          <FilterTable @filtered="getFilteredEventsByTable" />
-        </v-col>
-        <v-col xl="8">
-          <v-row>
+    <v-row>
+      <v-col xl="4" id="filtros">
+        <v-expansion-panels class="mt-8" multiple accordion v-model="filterPanels">
+          <v-row no-gutters class="header">
             <v-col>
-              <v-text-field
-                class="search mt-5"
-                v-model="search"
-                rounded
-                solo
-                label="Buscar por país o ciudad"
-                outlined
-                prepend-inner-icon="mdi-magnify"
-                @keyup.enter="getFilteredEventsByPlace"
-                dense
-                flat
-                :maxlength="max"
-                color="#298B7F"
-              ></v-text-field>
+              <h3>Filtrar por:</h3>
             </v-col>
-            <v-col cols="3">
-              <v-select
-                class="mt-5"
-                lin
-                v-model="selected"
-                label="Ordenar por:"
-                dense
-                solo
-                rounded
-                outlined
-                flat
-                color="#298B7F"
-                :items="titleItems"
-              ></v-select>
-            </v-col>
+            <span v-if="isFilterOpen">
+              <v-btn icon @click="closeFilters">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </span>
+            <span v-else>
+              <v-btn icon @click="openFilters">
+                <v-icon>mdi-arrow-down-drop-circle</v-icon>
+              </v-btn>
+            </span>
           </v-row>
-          <div class="noRes" v-if="Events == ''">
-            <h2>No se encontraron resultados</h2>
-          </div>
-          <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" />
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <template v-slot:default="{ isFilterOpen }">
+                <v-row no-gutters>
+                  <v-col cols="4">
+                    <h3>Habilidades</h3>
+                  </v-col>
+                  <v-col cols="8" class="text--secondary"></v-col>
+                </v-row>
+              </template>
+            </v-expansion-panel-header>
+
+            <v-expansion-panel-content>
+              <v-list-item-group multiple flat dense>
+                <v-list-item
+                  v-for="(skill,idx) in skills"
+                  :key="idx"
+                  @click="getFilteredEventsBySkill"
+                  v-model="skill.model"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      <v-list-item-icon>
+                        <v-icon>{{skill.icon}}</v-icon>
+                      </v-list-item-icon>
+                      {{skill.name}}
+                    </v-list-item-title>
+                  </v-list-item-content>
+                  <v-list-item-action>
+                    <v-switch color="#298b7f" v-model="skill.model"></v-switch>
+                  </v-list-item-action>
+                </v-list-item>
+              </v-list-item-group>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+        <!-- <FilterTable @filtered="getFilteredEventsByTable" /> -->
+      </v-col>
+
+      <v-col xl="8" id="resultados">
+        <v-row>
+          <v-col id="search-location">
+            <v-text-field
+              class="search mt-5"
+              v-model="searchPlace"
+              rounded
+              solo
+              label="Buscar por país o ciudad"
+              outlined
+              prepend-inner-icon="mdi-magnify"
+              @keyup.enter="getFilteredEventsByPlace"
+              dense
+              flat
+              :maxlength="max"
+              color="#298B7F"
+            ></v-text-field>
+          </v-col>
+
+          <v-col cols="3" id="sort-by">
+            <v-select
+              class="mt-5"
+              lin
+              v-model="selectOrder"
+              label="Ordenar por:"
+              dense
+              solo
+              rounded
+              outlined
+              flat
+              color="#298B7F"
+              :items="sortCriteria"
+            ></v-select>
+          </v-col>
+        </v-row>
+
+        <div class="noRes" v-show="Events == ''">
+          <h2>No se encontraron resultados</h2>
+        </div>
+
+        <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
 import APIServices from '../services/Api'
 import Event from '../components/Event.vue'
 import FilterTable from '../components/FilterTable.vue'
+import EventsTopBar from '../components/EventsTopBar.vue'
 
 export default {
   data () {
     return {
       Events: [],
-      search: '',
-      selected: '',
+      searchPlace: this.$route.query.p || '',
+      selectOrder: '',
       max: 20,
-      isFiltered: false,
-      items: [
-        { title: 'Recientes', function: 'newFirst', idx: 1 },
-        { title: 'Antiguos', function: 'oldFirst', idx: 2 },
-        { title: 'Valorados', function: 'rating', idx: 3 }
-      ],
-      offset: true
+      sortCriteria: ['Recientes', 'Antiguos', 'Valorados'],
+      offset: true,
+      queryAPI: {},
+      filterPanels: [0, 1, 2, 3],
+      skills: [],
+      isFilterOpen: true
     }
   },
   computed: {
-    titleItems () {
-      return this.items.map(e => e.title)
-    },
-    maxlength () {
-      if (this.search.length > 20) {
-        return this.search
-      } else {
-        return this.search
-      }
-    },
+    // eslint-disable-next-line vue/return-in-computed-property
     eventsSorted () {
-      const e = this.Events
-      if (this.selected === 'Antiguos') {
-        e.sort((a, b) => {
-          return new Date(a.createdAt) - new Date(b.createdAt)
-        })
-        return e
+      var sortedEvents = this.Events.slice(0)
+      if (this.selectOrder === 'Antiguos') {
+        return sortedEvents.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
       }
-      if (this.selected === 'Recientes') {
-        e.sort((a, b) => {
-          return new Date(b.createdAt) - new Date(a.createdAt)
-        })
-        return e
+      if (this.selectOrder === 'Recientes') {
+        return sortedEvents.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       }
-      return e
-    },
-    greatSearch () {
-      let correctSearch = ''
-      correctSearch += this.search.slice(0, 1).toUpperCase()
-      correctSearch += this.search.slice(1).toLowerCase()
-      return correctSearch
-    },
-    countriesEvent () {
-      const countries = []
-      const arrCountries = this.Events.map(e => e.country).forEach(element => {
-        if (!countries.includes(element)) countries.push(element)
-      })
-
-      let srtCountries = ''
-      countries.forEach((country, idx) => {
-        if (idx === countries.length - 1) {
-          srtCountries += ` y ${country}`
-        } else {
-          srtCountries += `, ${country}`
-        }
-      })
-
-      return srtCountries.slice(2)
+      return sortedEvents
     }
   },
   methods: {
-    getAllEvents () {
-      APIServices.getAllEvents(this.search)
-        .then(events => {
-          this.Events = events
-        })
-        .catch(err => console.log(err))
+    async getEvents () {
+      this.Events = await APIServices.getAllEvents(this.$route.query)
+    },
+    async getSkills () {
+      if (this.$route.query.s) {
+        var activeSkills = this.$route.query.s.split(',')
+      }
+      this.skills = await APIServices.getSkills()
+      this.skills = this.skills.map(skill => ({
+        model: activeSkills.includes(skill._id),
+        ...skill
+      }))
     },
     getFilteredEventsByPlace () {
-      APIServices.getAllEvents(this.search)
-        .then(events => {
-          this.Events = events
-          if (this.search === '') {
-            this.isFiltered = false
-          } else {
-            this.isFiltered = true
-          }
-          this.$router.push(`/events/${this.search}`)
-          this.search = ''
-        })
-        .catch(err => console.log(err))
-    },
-    getFilteredEventsByTable (skills, offers, dispo) {
-      var skillsQuery = skills
-        .toString()
-        .replace(/ /g, '%20')
-        .replace(/,/g, '&')
-      var offersQuery = offers
-        .toString()
-        .replace(/ /g, '%20')
-        .replace(/,/g, '&')
-      var dispoQuery = dispo
-        .toString()
-        .replace(/ /g, '%20')
-        .replace(/,/g, '&')
-
-      if (this.$router.app._route.params.place === undefined) {
-        APIServices.getAllEvents(
-          this.search,
-          skillsQuery,
-          offersQuery,
-          dispoQuery
-        )
-          .then(events => {
-            this.Events = events
-            console.log(this.$router.app._route.params.place)
-          })
-          .catch(err => console.log(err))
+      if (this.searchPlace) {
+        this.queryAPI.p = this.searchPlace
       } else {
-        APIServices.getAllEvents(
-          this.$router.app._route.params.place,
-          skillsQuery,
-          offersQuery,
-          dispoQuery
-        )
-          .then(events => {
-            this.Events = events
-            console.log(this.$router.app._route.params.place)
-          })
-          .catch(err => console.log(err))
+        delete this.queryAPI.p
       }
+      this.reload()
+    },
+    getFilteredEventsBySkill () {
+      const skillsOn = this.skills.filter(s => s.model === true)
+      if (skillsOn.length !== 0) {
+        this.queryAPI.s = skillsOn.map(s => s._id).join(',')
+      } else {
+        delete this.queryAPI.s
+      }
+      this.reload()
+    },
+    reload () {
+      if (Object.keys(this.queryAPI).length === 0) {
+        this.$router.replace({ path: '/events' }).catch(err => { console.error(err) })
+      } else {
+        this.$router.replace({ path: '/events', query: this.queryAPI }).catch(err => { console.error(err) })
+      }
+    },
+    closeFilters () {
+      this.filterPanels = []
+      this.isFilterOpen = false
+    },
+    openFilters () {
+      this.filterPanels = [0, 1, 2, 3]
+      this.isFilterOpen = true
     }
   },
+  watch: { // call again the method if the route changes
+    $route: 'getEvents'
+  },
   created () {
-    this.getAllEvents(this.search)
+    this.getSkills()
+    this.getEvents()
   },
   components: {
     Event,
-    FilterTable
-
+    // FilterTable,
+    EventsTopBar
   }
 }
 </script>
@@ -245,12 +217,21 @@ export default {
   margin-top: 100px;
   font-family: "QuickSand", sans-serif;
 }
-// .absolute{
-//   position: absolute;
-//   right: 0;
-//   top:0;
-// }
 .container {
   max-width: 1250px;
+}
+.header {
+  background-color: #298b7f;
+  color: white;
+  font-family: "QuickSand", sans-serif;
+  text-align: center;
+  padding: 7px;
+}
+.monthChip {
+  width: 100%;
+  p {
+    margin: auto;
+    text-align: center;
+  }
 }
 </style>
