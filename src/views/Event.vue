@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{arrFav}}
     <v-container>
       <!-- Sección de información -->
       <goBack></goBack>
