@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <EventsTopBar :events="eventsSorted" :isFiltered="true" />
+    <EventsTopBar :events="eventsSorted" :isFiltered="isFiltered" />
     <v-divider></v-divider>
 
     <v-row>
@@ -125,7 +125,8 @@ export default {
       queryAPI: {},
       filterPanels: [0, 1, 2, 3],
       skills: [],
-      isFilterOpen: true
+      isFilterOpen: true,
+      isFiltered: false
     }
   },
   computed: {
