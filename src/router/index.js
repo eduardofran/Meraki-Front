@@ -32,8 +32,8 @@ const routes = [
     path: '/event/:id',
     name: 'event',
     component: Event
-  }
-
+  },
+  {
     path: '/events',
     name: 'events',
     component: Events

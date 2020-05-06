@@ -109,7 +109,7 @@
 <script>
 import APIServices from '../services/Api'
 import Event from '../components/Event.vue'
-import FilterTable from '../components/FilterTable.vue'
+// import FilterTable from '../components/FilterTable.vue'
 import EventsTopBar from '../components/EventsTopBar.vue'
 
 export default {

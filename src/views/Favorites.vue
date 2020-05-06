@@ -1,6 +1,6 @@
 <template>
 <v-container class="container">
- <v-row class="mt-10 mb-4" id="searchInfo">
+ <v-row class="mt-8 mb-4" id="searchInfo">
             <v-col>
               <h1>
                Nunca es tarde si la aventura es buena.
@@ -17,9 +17,17 @@
           </v-col>
         </v-row>
     <v-divider></v-divider>
-  <v-container class="wrap">
+  <v-container class="wrap" v-if="favorites.length !== 0">
     <FavEvent v-for="(favEvent,idx) in eventsSorted" :key="idx" :favInfo="favEvent" class="mt-5"  @updateFavs="updateFavs"></FavEvent>
   </v-container>
+  <v-row class="mt-12 mb-4 text-center font" v-else>
+            <v-col>
+              <h2>
+               Aún no has añadido ningún destino a tu lista de favoritos
+              </h2>
+              <router-link to="/events"><h1 id="ruta">Puedes empezar desde aquí</h1></router-link>
+            </v-col>
+          </v-row>
 </v-container>
 </template>
 
@@ -86,6 +94,15 @@ export default {
 }
 .search {
   max-width: 800px;
+}
+*{
+  text-decoration-line: none;
+  #ruta {
+    color:#298B7F;
+  }
+}
+.font{
+  font-family: Quicksand, sans-serif;
 }
 
 </style>

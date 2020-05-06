@@ -31,11 +31,6 @@ export default {
     const response = await API.get(`/events?${queryObj2queryStr(queryObj)}`)
     return response.data
   },
-  async getSkills () {
-    const response = await API.get('/skills')
-
-    return response.data
-  },
 
   async getSkills () {
     const response = await API.get('/skills')

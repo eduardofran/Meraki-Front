@@ -1,6 +1,6 @@
 <template>
 <div>
-  <router-link :to="`/events/${favInfo._id}`">
+  <router-link :to="`/event/${favInfo._id}`">
     <v-card class="mx-2 my-2" max-width="280" outlined color="#FFFFFF">
       <v-row>
         <v-col>
