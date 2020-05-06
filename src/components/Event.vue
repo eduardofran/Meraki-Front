@@ -8,7 +8,7 @@
         <v-col cols md="7">
           <div v-if="existsToken">
           <v-btn absolute right top rounded icon x-large @click="Fav(eventsInfo._id)">
-            <v-icon v-if="isFav">mdi-heart</v-icon>
+            <v-icon v-if="arrFav">mdi-heart</v-icon>
             <v-icon v-else>mdi-heart-outline</v-icon>
           </v-btn>
           </div>
@@ -36,12 +36,15 @@
             </div>
             <div>
               <v-icon>mdi-arrow-left</v-icon>
-              Al menos {{eventsInfo.minStay}} semanas | <span v-for="(offer,idx) in eventsInfo.offers" :key="idx">{{offer.title}} | </span>
+              Al menos {{eventsInfo.minStay}} semanas | <span v-for="(offer,idx) in eventsInfo.offers" :key="idx">{{offer.name}} | </span>
             </div>
           </v-card-text>
           <v-card-actions>
-            <v-btn small outlined rounded color="#298B7F">
-              Contactar
+            <v-btn  v-if="!existsToken" to="/signup" small outlined rounded color="#298B7F">
+Contactar
+              <v-icon class="ml-2">mdi-email</v-icon>
+            </v-btn>
+               <v-btn  v-else small outlined rounded color="#298B7F">Contactar
               <v-icon class="ml-2">mdi-email</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
@@ -61,7 +64,6 @@ export default {
   name: 'Event',
   data () {
     return {
-      isFav: false,
       // PROPS RATING
       emptyIcon: 'mdi-star-outline',
       fullIcon: 'mdi-star',
@@ -77,7 +79,8 @@ export default {
     }
   },
   props: {
-    eventsInfo: Object
+    eventsInfo: Object,
+    favList: Array
   },
   computed: {
     singleSkills: function () {
@@ -88,20 +91,24 @@ export default {
     },
     singleOffers: function () {
       return this.eventsInfo.offers.toString().replace(/,/g, ' | ')
+    },
+    arrFav () {
+      return this.favList.map(e => e._id).includes(this.eventsInfo._id)
     }
   },
   methods: {
-    Fav (id) {
-      this.isFav = !this.isFav
+    async Fav (id) {
       const favObj = {
         favorite: id
       }
-      if (!this.isFav) {
-        APIServices.deleteFavorite(id).then(response => console.log(response)).catch(error => console.log(error))
+      if (this.arrFav) {
+        await APIServices.deleteFavorite(id).then(response => console.log(response)).catch(error => console.log(error))
         console.log('DELETE')
+        this.$emit('updateFavs')
       } else {
-        APIServices.addFavorites(favObj).then(response => console.log(response)).catch(error => console.log(error))
+        await APIServices.addFavorites(favObj).then(response => console.log(response)).catch(error => console.log(error))
         console.log('ADD')
+        this.$emit('updateFavs')
       }
     }
   }
@@ -111,5 +118,13 @@ export default {
 <style lang="scss" scoped>
 .v-card__text, .v-card__title {
   word-break: normal;
+
+}
+
+* {
+  text-decoration-line: none;
+  router-link{
+    color: black !important;
+  }
 }
 </style>

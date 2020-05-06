@@ -47,7 +47,7 @@
         </v-row>
 
         <div v-if="Events">
-          <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" />
+          <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" :favList="favEvents" @updateFavs="getFavEvents" />
         </div>
         <div class="noRes" v-else>
           <h2>No se encontraron resultados</h2>
@@ -66,6 +66,7 @@ export default {
   data () {
     return {
       Events: [],
+      favEvents: [],
       search: '',
       selected: '',
       max: 20,
@@ -162,6 +163,10 @@ export default {
       } else {
         this.isFiltered = true
       }
+    },
+    async getFavEvents () {
+      this.favEvents = await APIServices.getFavorites()
+      console.log('getfav')
     }
   },
   watch: { // call again the method if the route changes
@@ -169,6 +174,7 @@ export default {
   },
   created () {
     this.getEvents()
+    this.getFavEvents()
   },
   components: {
     Event,
