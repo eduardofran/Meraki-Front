@@ -29,11 +29,11 @@ const routes = [
     component: Login
   },
   {
-    path: '/events/:id',
+    path: '/event/:id',
     name: 'event',
     component: Event
-  },
-  {
+  }
+
     path: '/events',
     name: 'events',
     component: Events
@@ -53,6 +53,7 @@ const routes = [
   },
   { path: '/404', component: NotFound },
   { path: '*', redirect: '/404' }
+
 ]
 
 const router = new VueRouter({

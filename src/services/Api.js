@@ -6,6 +6,14 @@ const API = axios.create({
     'Content-Type': 'application/json'
   }
 })
+function queryObj2queryStr (queryObj) {
+  let queryStr = ''
+  for (const q in queryObj) {
+    queryStr += `${q}=${queryObj[q]}&`
+  }
+  return queryStr
+}
+
 export default {
   async signup (newUser) {
     const response = await API.post('/auth/signup', {
@@ -19,13 +27,13 @@ export default {
     })
     return response.data
   },
+  async getAllEvents (queryObj) {
+    const response = await API.get(`/events?${queryObj2queryStr(queryObj)}`)
+    return response.data
+  },
+  async getSkills () {
+    const response = await API.get('/skills')
 
-  async getAllEvents (query) {
-    let str = ''
-    for (const q in query) {
-      str += `${q}=${query[q]}&`
-    }
-    const response = await API.get(`/events?${str}`)
     return response.data
   },
 

@@ -19,6 +19,7 @@
           </v-btn>
         </span>
       </v-row>
+
       <!-------------- HOST ------------->
       <v-expansion-panel>
         <v-expansion-panel-header>
@@ -30,13 +31,9 @@
           </v-row>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-                   <v-list-item-group multiple>
-            <v-list-item
-              v-for="(host,idx) in host"
-              :key="idx"
-              v-model="host.mod"
-              @click="filtered(host.title)"
-            >
+          <v-list-item-group multiple>
+            <v-list-item v-for="(host,idx) in host" :key="idx" v-model="host.mod" @click="filtered">
+
               <v-list-item-content>
                 <v-list-item-title>
                   <v-list-item-icon>
@@ -52,6 +49,7 @@
           </v-list-item-group>
         </v-expansion-panel-content>
       </v-expansion-panel>
+
       <!------------- SKILLS ------------>
       <v-expansion-panel>
         <v-expansion-panel-header>
@@ -103,18 +101,25 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-row>
-          <v-chip-group multiple column>
-            <v-col v-for="(month,idx) in year" :key="idx" cols="4" sm="3" lg="4" class="px-1 py-1">
-              <v-chip
-                 v-model="month.mod"
-                active-class="teal--text"
-                class="monthChip"
-                @click="filtered"
+            <v-chip-group multiple column>
+              <v-col
+                v-for="(month,idx) in year"
+                :key="idx"
+                cols="4"
+                sm="3"
+                lg="4"
+                class="px-1 py-1"
               >
-                <p>{{month.title}}</p>
-              </v-chip>
-            </v-col>
-          </v-chip-group>
+                <v-chip
+                  v-model="month.mod"
+                  active-class="teal--text"
+                  class="monthChip"
+                  @click="filtered"
+                >
+                  <p>{{month.title}}</p>
+                </v-chip>
+              </v-col>
+            </v-chip-group>
           </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -284,5 +289,4 @@ export default {
     text-align: center;
   }
 }
-
 </style>
