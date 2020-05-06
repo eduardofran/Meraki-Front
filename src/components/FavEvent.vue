@@ -1,5 +1,6 @@
 <template>
 <div>
+  <router-link :to="`/events/${favInfo._id}`">
     <v-card class="mx-2 my-2" max-width="280" outlined color="#FFFFFF">
       <v-row>
         <v-col>
@@ -17,6 +18,8 @@
         </v-col>
       </v-row>
     </v-card>
+
+  </router-link>
   </div>
 </template>
 
@@ -55,5 +58,6 @@ export default {
 *{
   margin: 0px !important;
   padding: 0px !important;
+  text-decoration-line: none;
 }
 </style>

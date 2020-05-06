@@ -7,7 +7,7 @@
         </v-col>
         <v-col cols md="7">
           <div v-if="existsToken">
-          <v-btn absolute right top rounded icon x-large @click="Fav(eventsInfo._id)">
+          <v-btn absolute right top color="#298b7f" rounded icon x-large @click="Fav(eventsInfo._id)">
             <v-icon v-if="arrFav">mdi-heart</v-icon>
             <v-icon v-else>mdi-heart-outline</v-icon>
           </v-btn>

@@ -166,7 +166,6 @@ export default {
     },
     async getFavEvents () {
       this.favEvents = await APIServices.getFavorites()
-      console.log('getfav')
     }
   },
   watch: { // call again the method if the route changes

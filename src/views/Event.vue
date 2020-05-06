@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{arrFav}}
     <v-container>
       <!-- Sección de información -->
       <goBack></goBack>
@@ -38,8 +39,8 @@
                   <v-icon class="ml-2">mdi-email</v-icon>
                 </v-btn>
                 <span v-if="existsToken">
-                <v-btn rounded outlined icon large class="mb-5 ml-4" @click="isFav=!isFav">
-                  <v-icon v-if="isFav">mdi-heaheart</v-icon>
+                <v-btn rounded outlined icon large color="#298b7f" class="mb-5 ml-4" @click="Fav(event._id)">
+                  <v-icon v-if="arrFav">mdi-heart</v-icon>
                   <v-icon v-else>mdi-heart-outline</v-icon>
                 </v-btn>
                 </span>
@@ -192,6 +193,7 @@ export default {
     return {
       event: '',
       isFav: false,
+      favEvents: [],
       // ----------- RATING ---------
       emptyIcon: 'mdi-star-outline',
       fullIcon: 'mdi-star',
@@ -214,9 +216,33 @@ export default {
   computed: {
     existsToken () {
       return localStorage.getItem('token')
+    },
+    arrFav () {
+      return this.favEvents.map(e => e._id).includes(this.event._id)
     }
   },
+  methods: {
+    async getFavEvents () {
+      this.favEvents = await APIServices.getFavorites()
+    },
+    async Fav (id) {
+      const favObj = {
+        favorite: id
+      }
+      if (this.arrFav) {
+        await APIServices.deleteFavorite(id).then(response => console.log(response)).catch(error => console.log(error))
+        console.log('DELETE')
+        this.getFavEvents()
+      } else {
+        await APIServices.addFavorites(favObj).then(response => console.log(response)).catch(error => console.log(error))
+        console.log('ADD')
+        this.getFavEvents()
+      }
+    }
+
+  },
   created () {
+    this.getFavEvents()
     APIServices.getEvent(this.$route.params.id)
       .then(result => {
         this.event = result
