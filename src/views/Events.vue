@@ -82,13 +82,6 @@ export default {
     titleItems () {
       return this.items.map(e => e.title)
     },
-    maxlength () {
-      if (this.search.length > 20) {
-        return this.search
-      } else {
-        return this.search
-      }
-    },
     eventsSorted () {
       const e = this.Events
       if (this.selected === 'Antiguos') {
@@ -163,6 +156,12 @@ export default {
       this.search = this.$route.query.p
       console.log(this.$route.query)
       this.Events = await APIServices.getAllEvents(this.$route.query)
+
+      if (!this.$route.query.p) {
+        this.isFiltered = false
+      } else {
+        this.isFiltered = true
+      }
     }
   },
   watch: { // call again the method if the route changes
