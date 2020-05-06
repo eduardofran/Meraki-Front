@@ -6,7 +6,7 @@
         <v-tabs class="max d-none d-md-block d-print-block">
           <v-tab to="/">Inicio</v-tab>
           <v-tab to="/events">Voluntariados</v-tab>
-          <v-tab v-if="existsToken">Favoritos</v-tab>
+          <v-tab to="/me/favorites" v-if="existsToken">Favoritos</v-tab>
         </v-tabs>
 
       <router-link to="/">
@@ -51,7 +51,7 @@
             <v-btn block rounded text to="/events">Voluntariados</v-btn>
           </v-list-item>
           <v-list-item v-if="existsToken">
-            <v-btn block rounded text to="/">Favoritos</v-btn>
+            <v-btn block rounded text to="/me/favorites">Favoritos</v-btn>
           </v-list-item>
         </v-list-item-group>
       </v-list>

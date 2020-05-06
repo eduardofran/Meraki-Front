@@ -6,10 +6,12 @@
           <v-img min-height="300px" min-width="300px"  :src="eventsInfo.mainPhoto"></v-img>
         </v-col>
         <v-col cols md="7">
-          <v-btn absolute right top rounded icon x-large @click="isFav=!isFav">
+          <div v-if="existsToken">
+          <v-btn absolute right top rounded icon x-large @click="Fav(eventsInfo._id)">
             <v-icon v-if="isFav">mdi-heart</v-icon>
             <v-icon v-else>mdi-heart-outline</v-icon>
           </v-btn>
+          </div>
           <v-card-subtitle class="pb-0 mb-0 mt-4">{{eventsInfo.country}}, {{eventsInfo.city}}</v-card-subtitle>
           <v-card-title class="pb-0">{{eventsInfo.title}}</v-card-title>
           <div class="ml-3">
@@ -30,7 +32,7 @@
           <v-card-text class="text--primary">
             <div>
               <v-icon>mdi-arrow-right</v-icon>
-              {{eventsInfo.workHours}} h/sem | <span v-for="(skill,idx) in eventsInfo.skillsRequired" :key="idx">{{skill.title}} | </span>
+              {{eventsInfo.workHours}} h/sem | <span v-for="(skill,idx) in eventsInfo.skillsRequired" :key="idx">{{skill.name}} | </span>
             </div>
             <div>
               <v-icon>mdi-arrow-left</v-icon>
@@ -53,6 +55,8 @@
 </template>
 
 <script>
+import APIServices from '../services/Api'
+
 export default {
   name: 'Event',
   data () {
@@ -79,8 +83,20 @@ export default {
     singleSkills: function () {
       return this.eventsInfo.skillsRequired.toString().replace(/,/g, ' | ')
     },
+    existsToken () {
+      return localStorage.getItem('token')
+    },
     singleOffers: function () {
       return this.eventsInfo.offers.toString().replace(/,/g, ' | ')
+    }
+  },
+  methods: {
+    Fav (id) {
+      this.isFav = !this.isFav
+      const favObj = {
+        favorite: id
+      }
+      APIServices.addFavorites(favObj).then(response => console.log(response)).catch(error => console.log(error))
     }
   }
 }

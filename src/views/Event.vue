@@ -37,10 +37,12 @@
                   Contactar
                   <v-icon class="ml-2">mdi-email</v-icon>
                 </v-btn>
+                <span v-if="existsToken">
                 <v-btn rounded outlined icon large class="mb-5 ml-4" @click="isFav=!isFav">
-                  <v-icon v-if="isFav">mdi-heart</v-icon>
+                  <v-icon v-if="isFav">mdi-heaheart</v-icon>
                   <v-icon v-else>mdi-heart-outline</v-icon>
                 </v-btn>
+                </span>
                 <v-img min-height="300px" min-width="300px" :src="event.mainPhoto"></v-img>
               </v-col>
             </v-row>
@@ -67,7 +69,7 @@
                     class="text-center mx-12 my-10 max"
                   >
                     <v-icon size="60px" color="#298B7F">{{skill.icon}}</v-icon>
-                    <div>{{skill.title}}</div>
+                    <div>{{skill.name}}</div>
                   </h3>
                 </v-row>
               </v-col>
@@ -92,7 +94,7 @@
                     class="text-center mx-12 my-10 max"
                   >
                     <v-icon size="60px" color="#298B7F">{{offer.icon}}</v-icon>
-                    <div>{{offer.title}}</div>
+                    <div>{{offer.name}}</div>
                   </h3>
                 </row>
               </v-col>
@@ -167,13 +169,12 @@
               <v-btn icon @click="overlay = false">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
-                <v-carousel>
+                <v-carousel >
                   <v-carousel-item
-                    v-for="(photo,i) in event.gallery"
-                    :key="i"
+                    v-for="(photo,idx) in event.gallery"
+                    :key="idx"
                     :src="photo"
-                    reverse-transition="fade-transition"
-                    transition="fade-transition"
+                    class="maxGallery"
                   ></v-carousel-item>
                 </v-carousel>
             </v-overlay>
@@ -210,6 +211,11 @@ export default {
   components: {
     goBack
   },
+  computed: {
+    existsToken () {
+      return localStorage.getItem('token')
+    }
+  },
   created () {
     APIServices.getEvent(this.$route.params.id)
       .then(result => {
@@ -233,6 +239,12 @@ h3 {
 }
 .max {
   width: 150px;
+}
+.maxGallery{
+  width: 90vw;
+  max-width: 1000px;
+  height: auto;
+  object-fit: cover;
 }
 .v-chip--disabled {
   opacity: 1;

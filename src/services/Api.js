@@ -37,5 +37,36 @@ export default {
   async getEvent (id) {
     const response = await API.get(`/events/${id}`)
     return response.data
+  },
+  async getFavorites () {
+    const response = await API.get('/me/favorites',
+      {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    return response.data
+  },
+  async addFavorites (eventId) {
+    const response = await API.post('/me/favorites', {
+      ...eventId
+    },
+    {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    return response.data
+  },
+  async deleteFavorite (eventId) {
+    const response = await API.delete(`/me/favorites/${eventId}`,
+      {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      }
+    )
+    return response.data
   }
+
 }
