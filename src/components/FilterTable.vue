@@ -35,7 +35,7 @@
               v-for="(host,idx) in host"
               :key="idx"
               v-model="host.mod"
-              @click="filtered"
+              @click="filtered(host.title)"
             >
               <v-list-item-content>
                 <v-list-item-title>
@@ -67,9 +67,9 @@
         <v-expansion-panel-content>
           <v-list-item-group multiple flat dense>
             <v-list-item
-              v-for="(skill,idx) in skills"
+              v-for="(skill, idx) in skills"
               :key="idx"
-              @click="filtered"
+              @click="filtered(skill)"
               v-model="skill.mod"
             >
               <v-list-item-content>
@@ -79,7 +79,7 @@
                     <v-icon>{{skill.icon}}</v-icon>
                   </v-list-item-icon>
                   <!-- {{ skill.mod}} -->
-                  {{skill.title}}
+                  {{skill.name}}
                 </v-list-item-title>
               </v-list-item-content>
               <v-list-item-action>
@@ -158,6 +158,8 @@
 </template>
 
 <script>
+import APIServices from '../services/Api'
+
 export default {
   data: () => ({
     panel: [0, 1, 2, 3],
@@ -180,71 +182,7 @@ export default {
       },
       { title: 'Camping', mod: 'Camping', icon: 'mdi-image-filter-hdr' }
     ],
-    skills: [
-      {
-        title: 'Mantenimiento',
-        mod: false,
-        icon: 'mdi-wrench-outline'
-      },
-      {
-        title: 'Diseño Gráfico',
-        mod: false,
-        icon: 'mdi-brush'
-      },
-      { title: 'Fotografía', mod: false, icon: 'mdi-camera' },
-      {
-        title: 'Enseñanza escolar',
-        mod: false,
-        icon: 'mdi-book-open-page-variant'
-      },
-      {
-        title: 'Entretenimiento deportivo',
-        mod: false,
-        icon: 'mdi-soccer'
-      },
-      {
-        title: 'Tareas domésticas',
-        mod: false,
-        icon: 'mdi-sofa'
-      },
-      {
-        title: 'Enseñar idiomas',
-        mod: false,
-        icon: 'mdi-google-translate'
-      },
-      {
-        title: 'Informática',
-        mod: false,
-        icon: 'mdi-gesture-tap-button'
-      },
-      {
-        title: 'Pintura y decoración',
-        mod: false,
-        icon: 'mdi-format-paint'
-      },
-      {
-        title: 'Grabación de video',
-        mod: false,
-        icon: 'mdi-video-outline'
-      },
-      {
-        title: 'Cuidado infantil',
-        mod: false,
-        icon: 'mdi-baby-face-outline'
-      },
-      {
-        title: 'Cuidado de animales',
-        mod: false,
-        icon: 'mdi-dog-side'
-      },
-      {
-        title: 'Entretenimiento musical',
-        mod: false,
-        icon: 'mdi-music-note-outline'
-      },
-      { title: 'Jardinería', mod: false, icon: 'mdi-flower-outline' },
-      { title: 'Bartender', mod: false, icon: 'mdi-glass-cocktail' }
-    ],
+    skills: [],
     meals: [
       {
         title: 'Desayuno',
@@ -287,34 +225,37 @@ export default {
       return foo
     }
   },
+  async created () {
+    this.skills = await APIServices.getSkills()
+    this.skills = this.skills.map(skill => ({ mod: false, ...skill }))
+  },
   methods: {
-    filtered () {
+    filtered (queryObj) {
+      console.log(queryObj)
       // --------- SKILLS ----------->
-      var skillsQuery = this.skills
-        .filter(e => {
-          return e.mod === true
-        })
-        .map(e => {
-          return `s=${e.title}`
-        })
-      // --------- OFFERS ----------->
-      var offersQuery = [...this.host, ...this.meals]
-        .filter(e => {
-          return e.mod === true
-        })
-        .map(e => {
-          return `o=${e.title}`
-        })
-      // --------- DISPO ----------->
-      var dispoQuery = this.year
-        .filter(e => {
-          return e.mod === true
-        })
-        .map(e => {
-          return `d=${e.title}`
-        })
+      // var skillsQuery = this.skills
+      //   .filter(e => { return e.mod === true })
+      //   .map(e => { return `s=${e.title}` })
+
+      // // --------- OFFERS ----------->
+      // var offersQuery = [...this.host, ...this.meals]
+      //   .filter(e => { return e.mod === true })
+      //   .map(e => { return `o=${e.title}` })
+
+      // // --------- DISPO ----------->
+      // var dispoQuery = this.year
+      //   .filter(e => { return e.mod === true })
+      //   .map(e => { return `d=${e.title}` })
+      // ----------NEWQUERY -------------------->
+      if (queryObj.mod) {
+        var queryFilter = {
+          s: queryObj._id
+        }
+      } else {
+        queryFilter = { s: '' }
+      }
       // ----------- SEND ------------>
-      this.$emit('filtered', skillsQuery, offersQuery, dispoQuery)
+      this.$emit('filtered', skills, offers, dispo)
     },
     none () {
       this.panel = []

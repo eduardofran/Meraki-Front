@@ -1,87 +1,60 @@
 <template>
-  <div>
-    <!-- {{Events}} -->
-    <v-container>
-      <v-row class="mt-5 mb-4">
-        <v-col>
-          <span v-if="Events == ''">
-            <v-row>
-              <v-col cols="12" sm="8">
-                <h1>Ehh...Parece que estás un poco perdido</h1>
-              </v-col>
-              <v-col cols="12" sm="4" class="text-right">
-                <h2>{{Events.length}} Resultados</h2>
-              </v-col>
-            </v-row>
-          </span>
-          <span v-else>
-            <v-row>
-              <v-col cols="12" sm="8">
-                <h1>
-                  Estás en
-                  <span v-if="isFiltered">{{countriesEvent}}</span>
-                  <span v-else>
-                    todas partes.
-                    <!-- <v-img class="absolute" src="https://media.giphy.com/media/UvDcnQCKu0Mwanoygf/giphy.gif" max-width="200px"></v-img> -->
-                  </span>
-                </h1>
-              </v-col>
-              <v-col cols="12" sm="4" class="text-right mt-2">
-                <h2>{{Events.length}} Resultados</h2>
-              </v-col>
-            </v-row>
-          </span>
-        </v-col>
-      </v-row>
-      <v-divider></v-divider>
-      <v-row>
-        <!-- FILTROS -->
-
-        <v-col xl="4">
-          <FilterTable @filtered="getFilteredEventsByTable" />
-        </v-col>
-        <v-col xl="8">
+  <v-container>
+    <v-row class="mt-5 mb-4" id="searchInfo">
+      <v-col>
+        <span v-if="Events == ''">
           <v-row>
-            <v-col>
-              <v-text-field
-                class="search mt-5"
-                v-model="search"
-                rounded
-                solo
-                label="Buscar por país o ciudad"
-                outlined
-                prepend-inner-icon="mdi-magnify"
-                @keyup.enter="getFilteredEventsByPlace"
-                dense
-                flat
-                :maxlength="max"
-                color="#298B7F"
-              ></v-text-field>
+            <v-col cols="12" sm="8">
+              <h1>Ehh...Parece que estás un poco perdido</h1>
             </v-col>
-            <v-col cols="3">
-              <v-select
-                class="mt-5"
-                lin
-                v-model="selected"
-                label="Ordenar por:"
-                dense
-                solo
-                rounded
-                outlined
-                flat
-                color="#298B7F"
-                :items="titleItems"
-              ></v-select>
+            <v-col cols="12" sm="4" class="text-right">
+              <h2>{{Events.length}} Resultados</h2>
             </v-col>
           </v-row>
-          <div class="noRes" v-if="Events == ''">
-            <h2>No se encontraron resultados</h2>
-          </div>
-          <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" />
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+        </span>
+        <span v-else>
+          <v-row>
+            <v-col cols="12" sm="8">
+              <h1>
+                Estás en
+                <span v-if="isFiltered">{{countriesEvent}}</span>
+                <span v-else>
+                  todas partes.
+                  <!-- <v-img class="absolute" src="https://media.giphy.com/media/UvDcnQCKu0Mwanoygf/giphy.gif" max-width="200px"></v-img> -->
+                </span>
+              </h1>
+            </v-col>
+            <v-col cols="12" sm="4" class="text-right mt-2">
+              <h2>{{Events.length}} Resultados</h2>
+            </v-col>
+          </v-row>
+        </span>
+      </v-col>
+    </v-row>
+    <v-divider></v-divider>
+    <v-row id="filtros">
+      <v-col xl="4">
+        <FilterTable @filtered=" getFilteredEvents" />
+      </v-col>
+      <v-col xl="8">
+        <v-row>
+          <v-col>
+            <v-text-field class="search mt-5" v-model="search" rounded solo label="Buscar por país o ciudad" outlined prepend-inner-icon="mdi-magnify" @keyup.enter="getFilteredEventsByPlace" dense flat :maxlength="max" color="#298B7F" ></v-text-field>
+          </v-col>
+          <v-col cols="3">
+            <v-select class="mt-5" lin v-model="selected" label="Ordenar por:" dense solo rounded outlined flat color="#298B7F" :items="titleItems" ></v-select>
+          </v-col>
+        </v-row>
+
+        <div v-if="Events">
+          <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" :favList="favEvents" @updateFavs="getFavEvents" />
+        </div>
+        <div class="noRes" v-else>
+          <h2>No se encontraron resultados</h2>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -93,6 +66,7 @@ export default {
   data () {
     return {
       Events: [],
+      favEvents: [],
       search: '',
       selected: '',
       max: 20,
@@ -108,13 +82,6 @@ export default {
   computed: {
     titleItems () {
       return this.items.map(e => e.title)
-    },
-    maxlength () {
-      if (this.search.length > 20) {
-        return this.search
-      } else {
-        return this.search
-      }
     },
     eventsSorted () {
       const e = this.Events
@@ -157,75 +124,60 @@ export default {
     }
   },
   methods: {
-    getAllEvents () {
-      APIServices.getAllEvents(this.search)
-        .then(events => {
-          this.Events = events
-        })
-        .catch(err => console.log(err))
-    },
     getFilteredEventsByPlace () {
-      APIServices.getAllEvents(this.search)
-        .then(events => {
-          this.Events = events
-          if (this.search === '') {
-            this.isFiltered = false
-          } else {
-            this.isFiltered = true
-          }
-          this.$router.push(`/events/${this.search}`)
-          this.search = ''
-        })
-        .catch(err => console.log(err))
+      this.$router.replace({ name: 'events', query: { ...this.$route.query, p: this.search } })
     },
-    getFilteredEventsByTable (skills, offers, dispo) {
-      var skillsQuery = skills
-        .toString()
-        .replace(/ /g, '%20')
-        .replace(/,/g, '&')
-      var offersQuery = offers
-        .toString()
-        .replace(/ /g, '%20')
-        .replace(/,/g, '&')
-      var dispoQuery = dispo
-        .toString()
-        .replace(/ /g, '%20')
-        .replace(/,/g, '&')
+    getFilteredEvents (skills, offers, dispo) {
+      this.$router.replace({ name: 'events', query: { ...this.$route.query, s: skills } })
+    },
+    // getFilteredEventsByTable (skills, offers, dispo) {
+    //   console.log(skills)
+    //   var skillsQuery = skills.toString().replace(/ /g, '%20').replace(/,/g, '&')
+    //   var offersQuery = offers.toString().replace(/ /g, '%20').replace(/,/g, '&')
+    //   var dispoQuery = dispo.toString().replace(/ /g, '%20').replace(/,/g, '&')
 
-      if (this.$router.app._route.params.place === undefined) {
-        APIServices.getAllEvents(
-          this.search,
-          skillsQuery,
-          offersQuery,
-          dispoQuery
-        )
-          .then(events => {
-            this.Events = events
-            console.log(this.$router.app._route.params.place)
-          })
-          .catch(err => console.log(err))
+    //   if (this.$router.app._route.params.place === undefined) {
+    //     APIServices
+    //       .getAllEvents(this.search, skillsQuery, offersQuery, dispoQuery)
+    //       .then(events => {
+    //         this.Events = events
+    //         console.log(this.$router.app._route.params.place)
+    //       })
+    //       .catch(err => console.log(err))
+    //   } else {
+    //     APIServices.getAllEvents(this.$router.app._route.params.place, skillsQuery, offersQuery, dispoQuery)
+    //       .then(events => {
+    //         this.Events = events
+    //         console.log(this.$router.app._route.params.place)
+    //       })
+    //       .catch(err => console.log(err))
+    //   }
+    // },
+    async getEvents () {
+      this.search = this.$route.query.p
+      console.log(this.$route.query)
+      this.Events = await APIServices.getAllEvents(this.$route.query)
+
+      if (!this.$route.query.p) {
+        this.isFiltered = false
       } else {
-        APIServices.getAllEvents(
-          this.$router.app._route.params.place,
-          skillsQuery,
-          offersQuery,
-          dispoQuery
-        )
-          .then(events => {
-            this.Events = events
-            console.log(this.$router.app._route.params.place)
-          })
-          .catch(err => console.log(err))
+        this.isFiltered = true
       }
+    },
+    async getFavEvents () {
+      this.favEvents = await APIServices.getFavorites()
     }
   },
+  watch: { // call again the method if the route changes
+    $route: 'getEvents'
+  },
   created () {
-    this.getAllEvents(this.search)
+    this.getEvents()
+    this.getFavEvents()
   },
   components: {
     Event,
     FilterTable
-
   }
 }
 </script>
