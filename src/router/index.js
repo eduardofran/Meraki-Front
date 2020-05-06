@@ -5,6 +5,8 @@ import Signup from '../views/Signup.vue'
 import Login from '../views/Login.vue'
 import Events from '../views/Events.vue'
 import Event from '../views/Event.vue'
+import Favorites from '../views/Favorites.vue'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -27,15 +29,31 @@ const routes = [
     component: Login
   },
   {
+    path: '/event/:id',
+    name: 'event',
+    component: Event
+  }
+
     path: '/events',
     name: 'events',
     component: Events
   },
   {
-    path: '/event/:id',
-    name: 'event',
-    component: Event
-  }
+    path: '/me/favorites',
+    name: 'favorites',
+    component: Favorites,
+    beforeEnter (to, from, next) {
+      if (!localStorage.getItem('token')) {
+        next({
+          name: 'Auth'
+        })
+      }
+      next()
+    }
+  },
+  { path: '/404', component: NotFound },
+  { path: '*', redirect: '/404' }
+
 ]
 
 const router = new VueRouter({

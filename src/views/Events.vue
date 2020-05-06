@@ -100,7 +100,7 @@
           <h2>No se encontraron resultados</h2>
         </div>
 
-        <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" />
+        <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" :favList="favEvents" @updateFavs="getFavEvents" />
       </v-col>
     </v-row>
   </v-container>
@@ -118,6 +118,7 @@ export default {
       Events: [],
       searchPlace: this.$route.query.p || '',
       selectOrder: '',
+      favEvents: [],
       max: 20,
       sortCriteria: ['Recientes', 'Antiguos', 'Valorados'],
       offset: true,
@@ -129,6 +130,9 @@ export default {
   },
   computed: {
     // eslint-disable-next-line vue/return-in-computed-property
+    titleItems () {
+      return this.items.map(e => e.title)
+    },
     eventsSorted () {
       var sortedEvents = this.Events.slice(0)
       if (this.selectOrder === 'Antiguos') {
@@ -143,6 +147,14 @@ export default {
   methods: {
     async getEvents () {
       this.Events = await APIServices.getAllEvents(this.$route.query)
+      if (!this.$route.query.p) {
+        this.isFiltered = false
+      } else {
+        this.isFiltered = true
+      }
+    },
+    async getFavEvents () {
+      this.favEvents = await APIServices.getFavorites()
     },
     async getSkills () {
       if (this.$route.query.s) {
@@ -193,6 +205,7 @@ export default {
   created () {
     this.getSkills()
     this.getEvents()
+    this.getFavEvents()
   },
   components: {
     Event,

@@ -1,12 +1,13 @@
 <template>
   <div>
-    <v-app-bar flat dense class="transparent">
+    <!-- fixed elevate-on-scroll -->
+    <v-app-bar app elevate-on-scroll class="transparent">
       <v-app-bar-nav-icon class="d-md-none" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
         <v-tabs class="max d-none d-md-block d-print-block">
           <v-tab to="/">Inicio</v-tab>
           <v-tab to="/events">Voluntariados</v-tab>
-          <v-tab v-if="existsToken">Favoritos</v-tab>
+          <v-tab to="/me/favorites" v-if="existsToken">Favoritos</v-tab>
         </v-tabs>
 
       <router-link to="/">
@@ -32,7 +33,7 @@
         </div>
       </div>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer v-model="drawer" fixed temporary>
       <v-list-item v-if="existsToken">
         <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
@@ -43,7 +44,7 @@
       </v-list-item>
       <v-divider></v-divider>
       <v-list nav dense>
-        <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
+        <v-list-item-group v-model="group" active-class="">
           <v-list-item>
             <v-btn block rounded text to="/">Inicio</v-btn>
           </v-list-item>
@@ -51,7 +52,7 @@
             <v-btn block rounded text to="/events">Voluntariados</v-btn>
           </v-list-item>
           <v-list-item v-if="existsToken">
-            <v-btn block rounded text to="/">Favoritos</v-btn>
+            <v-btn block rounded text to="/me/favorites">Favoritos</v-btn>
           </v-list-item>
         </v-list-item-group>
       </v-list>
