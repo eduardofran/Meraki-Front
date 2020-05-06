@@ -2,8 +2,8 @@
   <div class="bg">
     <Navbar></Navbar>
     <v-content>
-      <v-container>
-        <v-row class="justify-center">
+      <v-container class="mt-12">
+        <v-row class="justify-center mt-12">
           <v-col cols="12" sm="8" md="7" lg="5">
             <v-card
               min-width="300px"

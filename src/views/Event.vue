@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-container>
+    <v-container class="mt-12">
       <!-- Sección de información -->
-      <goBack></goBack>
       <v-row>
+      <goBack class="ml-4"></goBack>
         <v-col>
           <v-card class outlined color="#FFFFFF">
             <v-row>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-container>
-      <v-row>
+    <v-container class="mt-12">
+      <v-row class="mt-6">
 
           <v-card color='#7FCBAF' class="rounded"  >
         <v-row>

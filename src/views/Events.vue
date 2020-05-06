@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mt-12">
     <EventsTopBar :events="eventsSorted" :isFiltered="isFiltered" />
     <v-divider></v-divider>
 

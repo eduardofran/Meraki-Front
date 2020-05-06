@@ -1,5 +1,5 @@
 <template>
-<v-container class="container">
+<v-container class="container mt-12">
  <v-row class="mt-8 mb-4" id="searchInfo">
             <v-col>
               <h1>
