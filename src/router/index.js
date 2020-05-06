@@ -7,6 +7,7 @@ import Events from '../views/Events.vue'
 import Event from '../views/Event.vue'
 import Favorites from '../views/Favorites.vue'
 import NotFound from '../views/NotFound.vue'
+import Profile from '../views/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,19 @@ const routes = [
     path: '/events',
     name: 'events',
     component: Events
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+    beforeEnter (to, from, next) {
+      if (!localStorage.getItem('token')) {
+        next({
+          name: 'Auth'
+        })
+      }
+      next()
+    }
   },
   {
     path: '/me/favorites',

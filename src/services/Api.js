@@ -70,6 +70,15 @@ export default {
       }
     )
     return response.data
+  },
+  async getUser () {
+    const response = await API.get('/me/profile',
+      {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    return response.data
   }
 
 }
