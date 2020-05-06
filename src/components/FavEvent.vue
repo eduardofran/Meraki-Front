@@ -8,7 +8,7 @@
         </v-col>
         <v-col>
           <div v-if="existsToken">
-          <v-btn absolute right top rounded color="#298b7f" icon x-large @click="deleteFavorite">
+          <v-btn absolute right top rounded color="#298b7f" icon x-large @click.prevent="deleteFavorite">
             <v-icon v-if="isFav">mdi-heart</v-icon>
             <v-icon v-else>mdi-heart-outline</v-icon>
           </v-btn>
