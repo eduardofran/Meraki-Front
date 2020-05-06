@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- fixed elevate-on-scroll -->
-    <v-app-bar fixed elevate-on-scroll class="transparent">
+    <v-app-bar app elevate-on-scroll class="transparent">
       <v-app-bar-nav-icon class="d-md-none" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
         <v-tabs class="max d-none d-md-block d-print-block">
