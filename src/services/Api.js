@@ -79,6 +79,17 @@ export default {
         }
       })
     return response.data
+  },
+  async updateSkills (selectedSkills) {
+    const response = await API.put('/me/profile/skills', {
+      ...selectedSkills
+    },
+    {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    return response.data
   }
 
 }
