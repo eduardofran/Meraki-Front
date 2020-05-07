@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar fixed elevate-on-scroll class="transparent">
+    <v-app-bar fixed elevate-on-scroll :class="color">
       <v-app-bar-nav-icon class="d-md-none" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
         <v-tabs class="max d-none d-md-block d-print-block">
@@ -81,6 +81,9 @@ export default {
       group: null
     }
   },
+  props: {
+    color: String
+  },
   computed: {
     existsToken () {
       return localStorage.getItem('token')
@@ -111,9 +114,8 @@ export default {
 .max {
   width: auto !important;
 }
-.transparent {
-  background-color:  !important;
-
+.nav {
+  background-color:  #FFFFFF !important;
 }
 .v-navigation-drawer {
   width: 70% !important;

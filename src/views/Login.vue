@@ -1,6 +1,6 @@
 <template>
   <div class="bg">
-    <Navbar></Navbar>
+    <Navbar color="transparent"></Navbar>
     <v-content>
       <v-container class="mt-12">
         <v-row class="justify-center mt-12">
