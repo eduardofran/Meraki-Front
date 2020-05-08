@@ -87,7 +87,7 @@
                 <v-card-title>
                   <h2>Qué ofrece</h2>
                 </v-card-title>
-                <row class="d-flex">
+                <v-row class="d-flex">
                   <h3
                     v-for="(offer,idx) in event.offers"
                     :key="idx"
@@ -96,7 +96,7 @@
                     <v-icon size="60px" color="#298B7F">{{offer.icon}}</v-icon>
                     <div>{{offer.name}}</div>
                   </h3>
-                </row>
+                </v-row>
               </v-col>
             </v-row>
           </v-card>
