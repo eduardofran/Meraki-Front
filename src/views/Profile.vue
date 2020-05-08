@@ -5,16 +5,67 @@
       <v-col>
         <v-card outlined color="#FFFFFF" class="mx-auto">
           <v-col cols="3">
-            <v-btn small color="#298B7F" dark class="ml-4" rounded icon>
-              <v-icon size="15px" class="ml-1">mdi-pencil</v-icon>
-            </v-btn>
-            <v-btn x-small absolute right color="red darken-3" dark class="ml-4">Eliminar usuario</v-btn>
+           <v-btn @click="upDate = true" small absolute right color="#298B7F" dark class="ml-4" rounded>
+                  Editar
+                  <v-icon size="15px" class="ml-1">mdi-pencil</v-icon>
+                </v-btn>
           </v-col>
+<v-overlay :value="upDate">
+                  <v-btn icon @click="upDate = false">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+      <v-card
+    class="overflow-hidden"
+    color="teal"
+    dark
+  >
+    <v-toolbar
+      flat
+      color="teal"
+    >
+      <v-icon>mdi-account</v-icon>
+      <v-toolbar-title class="font-weight-light">Perfil de usuario</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+    <v-card-text>
+      <v-text-field
+        color="white"
+        label="Name"
+      ></v-text-field>
+      <v-autocomplete
+        :items="states"
+        :filter="customFilter"
+        color="white"
+        item-text="name"
+        label="State"
+      ></v-autocomplete>
+    </v-card-text>
+    <v-divider></v-divider>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+        color="success"
+        @click="save"
+      >
+        Guardar
+      </v-btn>
+    </v-card-actions>
+    <v-snackbar
+      v-model="hasSaved"
+      :timeout="2000"
+      absolute
+      bottom
+      left
+    >
+      Tu perfil ha sido modificado con éxito
+    </v-snackbar>
+  </v-card>
+              </v-overlay>
           <v-row>
-            <v-col cols="2">
+            <v-col cols md="2">
               <v-img :src="user.photoUrl"></v-img>
             </v-col>
-            <v-col cols="7">
+            <v-col cols md="7">
               <h1 class="titulo">Sobre mi</h1>
               <v-card-title>
                 <h4>
@@ -45,8 +96,8 @@
                   <v-icon size="35px" class="mb-3 mr-2" color="#298B7F">mdi-translate</v-icon>Idiomas
                 </h2>
                 <v-btn small absolute right color="#298B7F" dark class="ml-4" rounded>
-                  Editar
-                  <v-icon size="15px" class="ml-1">mdi-pencil</v-icon>
+                  Añadir
+                  <v-icon size="15px" class="ml-1">mdi-plus</v-icon>
                 </v-btn>
               </v-card-title>
               <v-row class="d-flex" v-if="user.languages.length !== 0">
@@ -138,6 +189,40 @@
             </v-col>
           </v-row>
         </v-card>
+        <v-divider></v-divider>
+        <v-row>
+          <v-col cols ="8">
+
+        <h2 class="my-12">
+                  <v-icon  size="35px" class="mb-2 mr-2" color="#298B7F">mdi-alert</v-icon>Eliminar perfil de usuario
+                </h2>
+          </v-col >
+          <v-col cols ="4" class="text-right mt-2">
+
+         <v-btn @click="confirm = !confirm" x-small   color="red darken-3" dark class="my-12 mr-6">Eliminar </v-btn>
+         <v-overlay :value="confirm">
+                  <v-btn icon @click="confirm = false">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                  <v-alert
+      prominent
+class="text-center "
+      type="error"
+    >
+      <v-row align="center">
+        <v-col class="grow">Eliminando tu cuenta de usuario, borrarás todos tus datos y registros de forma definitiva, ¿estás seguro de que quieres continuar?</v-col>
+        <v-col class="shrink">
+        </v-col>
+      </v-row>
+          <v-btn @click="confirm = false" class="mx-5">Cancelar</v-btn>
+
+          <v-btn @click="deleteUser()" class="mx-5">Confirmar</v-btn>
+
+    </v-alert>
+
+              </v-overlay>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
@@ -154,7 +239,9 @@ export default {
       model: [],
       user: {},
       skills: [],
-      overlay: false
+      overlay: false,
+      confirm: false,
+      upDate: false
     }
   },
   components: {
@@ -188,6 +275,13 @@ export default {
       this.user.skills.map(s => {
         return this.model.push(this.skillsId.indexOf(s._id))
       })
+    },
+    deleteUser () {
+      this.confirm = false
+      APIServices.deleteUser()
+      localStorage.clear()
+      this.$router.push('/')
+      window.location.reload()
     }
   },
   async created () {
@@ -195,6 +289,7 @@ export default {
     await this.getUser()
     await this.checkSkills()
   }
+
 }
 </script>
 

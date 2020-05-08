@@ -23,9 +23,12 @@
         <!-- YES TOKEN -->
         <div v-else>
           <v-btn text small class="mr-2">Crear</v-btn>
-          <v-avatar color="red" size="30">
-            <span class="white--text">CJ</span>
+          <v-avatar class="mr-2" color="red" size="30">
+         <img
+        :src= "`${user.photoUrl}`"
+      >
           </v-avatar>
+
           <v-btn text to="/profile" rounded small class="mr-2">{{name}}</v-btn>
           <v-btn icon @click="logout">
             <v-icon>mdi-logout</v-icon>
@@ -35,12 +38,15 @@
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" fixed temporary>
       <v-list-item v-if="existsToken">
-        <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+ <v-list-item-avatar>
+          <v-img :src= "`${user.photoUrl}`"></v-img>
         </v-list-item-avatar>
+        <router-link to="/profile">
         <v-list-item-content>
           <v-list-item-title>{{name}}</v-list-item-title>
         </v-list-item-content>
+        </router-link>
+
       </v-list-item>
       <v-divider></v-divider>
       <v-list nav dense>
@@ -73,13 +79,16 @@
   </div>
 </template>
 <script>
+import APIServices from '../services/Api'
+
 export default {
   name: 'Navbar',
   data () {
     return {
       name: localStorage.getItem('name'),
       drawer: false,
-      group: null
+      group: null,
+      user: {}
     }
   },
   computed: {
@@ -97,6 +106,9 @@ export default {
     group () {
       this.drawer = false
     }
+  },
+  async created () {
+    this.user = await APIServices.getUser()
   }
 }
 </script>
