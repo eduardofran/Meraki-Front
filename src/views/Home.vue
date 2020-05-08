@@ -270,7 +270,7 @@ export default {
       card4: {},
       word: 'ir arriba',
       duration: 6000,
-      mainAudio: 'file:///C:/Users/E6306/Downloads/Vicetone%20&%20Tony%20Igy%20-%20Astronomia%20(mp3cut.net).mp3',
+      mainAudio: 'http://tholman.com/elevator.js/music/elevator.mp3',
       endAudio: 'http://tholman.com/elevator.js/music/ding.mp3'
     }
   },
