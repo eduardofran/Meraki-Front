@@ -72,6 +72,36 @@ export default {
       }
     )
     return response.data
+  },
+  async getUser () {
+    const response = await API.get('/me/profile',
+      {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      })
+    return response.data
+  },
+  async updateSkills (selectedSkills) {
+    const response = await API.put('/me/profile/skills', {
+      ...selectedSkills
+    },
+    {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    return response.data
+  },
+  async deleteUser () {
+    const response = await API.delete('/me/profile',
+      {
+        headers: {
+          token: localStorage.getItem('token')
+        }
+      }
+    )
+    return response.data
   }
 
 }
