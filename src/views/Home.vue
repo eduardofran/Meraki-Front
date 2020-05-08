@@ -4,8 +4,8 @@
       <v-row class="mt-6" align="end">
         <v-card color="#7FCBAF" class="rounded">
           <v-row class align="end">
-            <v-col cols="6" align-self="start">
-              <v-card-title class="mt-12 ml-12 pt-12">
+            <v-col cols md="6" align-self="center">
+              <v-card-title class="my-4 ml-12 py-4">
                 <h2>Viaja. Explora. Ayuda.</h2>
               </v-card-title>
               <v-card-subtitle class="mt-4 ml-12 fcolor">
@@ -16,7 +16,7 @@
                 </h2>
               </v-card-subtitle>
             </v-col>
-            <v-col cols="6" class="margin">
+            <v-col cols="6" md="6" class="margin ml-auto">
               <v-img class="logo" src="../assets/merakihome.png"></v-img>
             </v-col>
           </v-row>
@@ -56,7 +56,7 @@
       <v-divider />
       <v-row class="mt-8">
         <v-col>
-          <v-card class="rounded" outlined color="#F1F1F1">
+          <v-card class="" outlined color="#FAFAFA">
             <v-row>
               <v-col>
                 <v-card-title class="my-5 ml-5">
@@ -117,7 +117,7 @@
                   </v-col>
                   <v-col cols md="4">
                     <router-link to="/events?s=5eb33e20e5d0ba412e2034a1">
-                      <v-card class="mx-2 my-2" color="#FFFFFF">
+                      <v-card class="mx-2 mt-2 mb-12" color="#FFFFFF">
                         <v-row>
                           <v-col class="py-0">
                             <v-img
@@ -150,12 +150,12 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row class="mt-8 mb-12">
+      <v-row class="mt-8 mb-6">
         <v-col>
           <v-card outlined color="#FFFFFF">
             <v-row>
               <v-col>
-                <v-card-title class="my-5 ml-5">
+                <v-card-title class="mb-2 ml-5">
                   <h2>
                     Estos son los destinos mejor
                     <br />valorados por gente como tu
@@ -246,9 +246,9 @@
               </v-col>
             </v-row>
           </v-card>
-          <VueElevator class='elevator' :word='word' :duration='duration' :mainAudio='mainAudio' :endAudio='endAudio' ></VueElevator>
         </v-col>
       </v-row>
+       <VueElevator class='elevator' :word='word' :duration='duration' :mainAudio='mainAudio' :endAudio='endAudio' ></VueElevator>
     </v-container>
   </div>
 </template>
@@ -268,8 +268,8 @@ export default {
       card2: {},
       card3: {},
       card4: {},
-      word: 'ir arriba',
-      duration: 6000,
+      word: '',
+      duration: 10000,
       mainAudio: 'http://tholman.com/elevator.js/music/elevator.mp3',
       endAudio: 'http://tholman.com/elevator.js/music/ding.mp3'
     }
@@ -287,6 +287,7 @@ export default {
   },
   components: {
     VueElevator
+
   }
 }
 
@@ -327,8 +328,9 @@ h5{
 
 }
 .elevator{
-  position: absolute;
-  right:0;
-  margin-right: 50px;
+//   position: absolute;
+//   right:0;
+  margin: 50px 0;
 }
+
 </style>

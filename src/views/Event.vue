@@ -33,7 +33,7 @@
                 <v-card-text class="text--primary">{{event.description}}</v-card-text>
               </v-col>
               <v-col cols md="5" class="text-right">
-                <v-btn large outlined rounded color="#298B7F" class="mb-5">
+                <v-btn to="/signup" large outlined rounded color="#298B7F" class="mb-5">
                   Contactar
                   <v-icon class="ml-2">mdi-email</v-icon>
                 </v-btn>
@@ -181,12 +181,15 @@
           </v-row>
         </v-col>
       </v-row>
+       <VueElevator class='elevator' :word='word' :duration='duration' :mainAudio='mainAudio' :endAudio='endAudio' ></VueElevator>
     </v-container>
   </div>
 </template>
 <script>
 import APIServices from '../services/Api'
 import goBack from '../components/Back.vue'
+import { VueElevator } from 'vue-elevator'
+
 export default {
   data () {
     return {
@@ -206,11 +209,17 @@ export default {
       color: 'yellow',
       bgColor: 'black',
       // ---------- GALLERY OVERLAY ---------
-      overlay: false
+      overlay: false,
+      word: '',
+      duration: 10000,
+      mainAudio: 'http://tholman.com/elevator.js/music/elevator.mp3',
+      endAudio: 'http://tholman.com/elevator.js/music/ding.mp3'
     }
   },
   components: {
-    goBack
+    goBack,
+    VueElevator
+
   },
   computed: {
     existsToken () {
@@ -291,5 +300,10 @@ h3 {
     margin: 0px;
     padding: 0px;
   }
+}
+.elevator{
+//   position: absolute;
+//   right:0;
+  margin: 50px 0;
 }
 </style>

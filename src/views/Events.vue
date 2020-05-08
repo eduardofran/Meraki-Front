@@ -103,10 +103,12 @@
         <Event v-for="event in eventsSorted" :key="event._id" :eventsInfo="event" :favList="favEvents" @updateFavs="getFavEvents" />
       </v-col>
     </v-row>
+           <VueElevator class='elevator' :word='word' :duration='duration' :mainAudio='mainAudio' :endAudio='endAudio' ></VueElevator>
   </v-container>
 </template>
 
 <script>
+import { VueElevator } from 'vue-elevator'
 import APIServices from '../services/Api'
 import Event from '../components/Event.vue'
 // import FilterTable from '../components/FilterTable.vue'
@@ -126,7 +128,11 @@ export default {
       filterPanels: [],
       skills: [],
       isFilterOpen: false,
-      isFiltered: false
+      isFiltered: false,
+      word: '',
+      duration: 10000,
+      mainAudio: 'http://tholman.com/elevator.js/music/elevator.mp3',
+      endAudio: 'http://tholman.com/elevator.js/music/ding.mp3'
     }
   },
   computed: {
@@ -211,7 +217,9 @@ export default {
   components: {
     Event,
     // FilterTable,
-    EventsTopBar
+    EventsTopBar,
+    VueElevator
+
   }
 }
 </script>
@@ -251,4 +259,10 @@ export default {
 #filtros {
   max-width: 400px;
 }
+.elevator{
+//   position: absolute;
+//   right:0;
+  margin: 50px 0;
+}
+
 </style>

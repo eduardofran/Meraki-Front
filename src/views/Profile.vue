@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container  class="mt-12">
     <goBack></goBack>
     <v-row>
       <v-col>
@@ -61,7 +61,7 @@
     </v-snackbar>
   </v-card>
               </v-overlay>
-          <v-row>
+          <v-row class="mt-6">
             <v-col cols md="2">
               <v-img :src="user.photoUrl"></v-img>
             </v-col>

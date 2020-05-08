@@ -21,7 +21,7 @@
         </div>
         <!-- YES TOKEN -->
         <div v-else>
-          <v-btn text small class="mr-2">Crear</v-btn>
+          <v-btn to="/adondevasquetepierdes" text small class="mr-2">Crear</v-btn>
           <v-avatar class="mr-2" color="red" size="30">
          <img
         :src= "`${user.photoUrl}`"

@@ -6,7 +6,7 @@
 
      <v-content>
     <router-view></router-view>
-
+    <!-- <VueElevator class='elevator' :word='word' :duration='duration' :mainAudio='mainAudio' :endAudio='endAudio' ></VueElevator> -->
     </v-content>
 <v-footer
     dark
@@ -26,19 +26,22 @@
           </h4>
       </v-card-text>
     </v-card>
+
   </v-footer>
   </v-app>
 </template>
 
 <script>
 // import Navbar from '@/components/Navbar.vue'
+import { VueElevator } from 'vue-elevator'
 const defaultLayout = 'default'
+
 export default {
   name: 'App',
 
   components: {
     // Navbar
-
+    VueElevator
   },
   computed: {
     layout () {
@@ -47,12 +50,10 @@ export default {
   },
 
   data: () => ({
-    icons: [
-      'mdi-facebook',
-      'mdi-twitter',
-      'mdi-linkedin',
-      'mdi-instagram'
-    ]
+    // word: '',
+    // duration: 10000,
+    // mainAudio: 'http://tholman.com/elevator.js/music/elevator.mp3',
+    // endAudio: 'http://tholman.com/elevator.js/music/ding.mp3'
   })
 }
 </script>
@@ -64,5 +65,10 @@ export default {
 
 .color{
   background-color: #298b7f;
+}
+.elevator{
+//   position: absolute;
+//   right:0;
+  margin: 50px 0;
 }
 </style>
