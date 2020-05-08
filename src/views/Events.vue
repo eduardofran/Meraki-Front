@@ -123,9 +123,9 @@ export default {
       sortCriteria: ['Recientes', 'Antiguos', 'Valorados'],
       offset: true,
       queryAPI: {},
-      filterPanels: [0, 1, 2, 3],
+      filterPanels: [],
       skills: [],
-      isFilterOpen: true,
+      isFilterOpen: false,
       isFiltered: false
     }
   },
