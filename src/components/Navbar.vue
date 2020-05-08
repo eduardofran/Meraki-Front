@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- fixed elevate-on-scroll -->
-    <v-app-bar app elevate-on-scroll class="transparent">
+    <v-app-bar fixed elevate-on-scroll :class="color">
       <v-app-bar-nav-icon class="d-md-none" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
         <v-tabs class="max d-none d-md-block d-print-block">
@@ -11,7 +10,7 @@
         </v-tabs>
 
       <router-link to="/">
-        <h2 class="brand">Meraki</h2>
+        <h1 class="brand">Meraki</h1>
       </router-link>
         <v-spacer></v-spacer>
       <div class="d-none d-md-block d-print-block">
@@ -91,6 +90,9 @@ export default {
       user: {}
     }
   },
+  props: {
+    color: String
+  },
   computed: {
     existsToken () {
       return localStorage.getItem('token')
@@ -118,16 +120,20 @@ export default {
   .brand {
     color: #298b7f;
     font-family: "Quicksand", sans-serif;
+    font-size: 40px !important;
   }
 }
 .max {
   width: auto !important;
 }
-.transparent {
-  background-color:  !important;
-
+.nav {
+  background-color:  #FFFFFF !important;
 }
 .v-navigation-drawer {
   width: 70% !important;
+}
+
+.v-tab--active {
+  color:#298b7f !important;
 }
 </style>

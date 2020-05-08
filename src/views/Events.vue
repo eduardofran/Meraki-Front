@@ -1,10 +1,10 @@
 <template>
-  <v-container>
-    <EventsTopBar :events="eventsSorted" :isFiltered="true" />
+  <v-container class="mt-12">
+    <EventsTopBar :events="eventsSorted" :isFiltered="isFiltered" />
     <v-divider></v-divider>
 
     <v-row>
-      <v-col xl="4" id="filtros">
+      <v-col cols xl="4" id="filtros">
         <v-expansion-panels class="mt-8" multiple accordion v-model="filterPanels">
           <v-row no-gutters class="header">
             <v-col>
@@ -25,10 +25,10 @@
             <v-expansion-panel-header>
               <template v-slot:default="{ isFilterOpen }">
                 <v-row no-gutters>
-                  <v-col cols="4">
+                  <v-col>
                     <h3>Habilidades</h3>
                   </v-col>
-                  <v-col cols="8" class="text--secondary"></v-col>
+                  <v-col class="text--secondary"></v-col>
                 </v-row>
               </template>
             </v-expansion-panel-header>
@@ -60,7 +60,7 @@
         <!-- <FilterTable @filtered="getFilteredEventsByTable" /> -->
       </v-col>
 
-      <v-col xl="8" id="resultados">
+      <v-col cols md="8" id="resultados">
         <v-row>
           <v-col id="search-location">
             <v-text-field
@@ -74,7 +74,7 @@
               @keyup.enter="getFilteredEventsByPlace"
               dense
               flat
-              :maxlength="max"
+              :mamdength="max"
               color="#298B7F"
             ></v-text-field>
           </v-col>
@@ -123,9 +123,10 @@ export default {
       sortCriteria: ['Recientes', 'Antiguos', 'Valorados'],
       offset: true,
       queryAPI: {},
-      filterPanels: [0, 1, 2, 3],
+      filterPanels: [],
       skills: [],
-      isFilterOpen: true
+      isFilterOpen: false,
+      isFiltered: false
     }
   },
   computed: {
@@ -246,5 +247,8 @@ export default {
     margin: auto;
     text-align: center;
   }
+}
+#filtros {
+  max-width: 400px;
 }
 </style>

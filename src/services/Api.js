@@ -1,10 +1,12 @@
 import axios from 'axios'
 const API = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: process.env.VUE_APP_API_URL,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  },
+  useCredentials: true
 })
 function queryObj2queryStr (queryObj) {
   let queryStr = ''

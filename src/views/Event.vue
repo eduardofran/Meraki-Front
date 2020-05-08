@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-container>
+    <v-container class="mt-12">
       <!-- Sección de información -->
-      <goBack></goBack>
+      <goBack class="ml-4"></goBack>
       <v-row>
         <v-col>
           <v-card class outlined color="#FFFFFF">
@@ -217,7 +217,8 @@ export default {
       return localStorage.getItem('token')
     },
     arrFav () {
-      return this.favEvents.map(e => e._id).includes(this.event._id)
+      if (this.favEvents.length !== 0) { return this.favEvents.map(e => e._id).includes(this.event._id) }
+      return false
     }
   },
   methods: {

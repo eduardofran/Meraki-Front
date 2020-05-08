@@ -17,8 +17,13 @@
       flat
       tile
     >
-      <v-card-text class="py-2 white--text text-center">
-        {{ new Date().getFullYear() }} — <strong>Meraki</strong>
+      <v-card-text class="py-2 white--text text-center color">
+
+        <h4>
+          made with  <v-icon>mdi-heart</v-icon> by <a href="https://github.com/eduardofran">@eduardofran</a> & <a href="https://github.com/Ollebacx">@Ollebacx</a>
+          <v-spacer></v-spacer>
+        {{ new Date().getFullYear() }} — <strong>Meraki</strong><br>
+          </h4>
       </v-card-text>
     </v-card>
   </v-footer>
@@ -51,3 +56,13 @@ export default {
   })
 }
 </script>
+<style lang="scss" scoped>
+ h4{
+   font-weight: 400;
+ }
+ h4 a{color: white;}
+
+.color{
+  background-color: #298b7f;
+}
+</style>

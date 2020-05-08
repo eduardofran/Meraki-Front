@@ -1,19 +1,21 @@
 <template>
   <div>
-    <v-card class="mx-auto my-2" max-width="800" min-width="300" outlined color="#FFFFFF">
+    <v-card class="mx-auto my-2" max-width="800" outlined color="#FFFFFF">
       <v-row>
-        <v-col cols md="5">
-          <v-img min-height="300px" min-width="300px"  :src="eventsInfo.mainPhoto"></v-img>
+        <v-col cols md="4" class="mt-1">
+         <router-link :to="`/event/${eventsInfo._id}`">
+            <v-img  min-height="200px" :src="eventsInfo.mainPhoto"></v-img>
+           </router-link>
         </v-col>
-        <v-col cols md="7">
+        <v-col cols  md="8" >
           <div v-if="existsToken">
           <v-btn absolute right top color="#298b7f" rounded icon x-large @click="Fav(eventsInfo._id)">
             <v-icon v-if="arrFav">mdi-heart</v-icon>
             <v-icon v-else>mdi-heart-outline</v-icon>
           </v-btn>
           </div>
-          <v-card-subtitle class="pb-0 mb-0 mt-4">{{eventsInfo.country}}, {{eventsInfo.city}}</v-card-subtitle>
-          <v-card-title class="pb-0">{{eventsInfo.title}}</v-card-title>
+          <v-card-subtitle class="py-0 my-0">{{eventsInfo.country}}, {{eventsInfo.city}}</v-card-subtitle>
+          <v-card-title class="py-0">{{eventsInfo.title}}</v-card-title>
           <div class="ml-3">
             <v-rating
               v-model="rating"
