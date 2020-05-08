@@ -15,6 +15,7 @@
                     <v-icon>mdi-close</v-icon>
                   </v-btn>
       <v-card
+      width="400px"
     class="overflow-hidden"
     color="teal"
     dark
@@ -30,14 +31,14 @@
     <v-card-text>
       <v-text-field
         color="white"
-        label="Name"
+        label="Nombre"
+        v-model="username"
       ></v-text-field>
       <v-autocomplete
-        :items="states"
-        :filter="customFilter"
+        :items="countriesValues"
         color="white"
         item-text="name"
-        label="State"
+        :label="country"
       ></v-autocomplete>
     </v-card-text>
     <v-divider></v-divider>
@@ -46,16 +47,15 @@
       <v-btn
         color="success"
         @click="save"
-      >
-        Guardar
+      >Guardar
       </v-btn>
     </v-card-actions>
     <v-snackbar
       v-model="hasSaved"
-      :timeout="2000"
-      absolute
+      :timeout="3000"
+      relative
       bottom
-      left
+      center
     >
       Tu perfil ha sido modificado con éxito
     </v-snackbar>
@@ -231,7 +231,9 @@ class="text-center "
 <script>
 import APIServices from '../services/Api'
 import goBack from '../components/Back.vue'
+import countries from '../assets/countries.json'
 var moment = require('moment')
+
 export default {
   name: 'Profile',
   data () {
@@ -239,9 +241,12 @@ export default {
       model: [],
       user: {},
       skills: [],
+      hasSaved: false,
       overlay: false,
       confirm: false,
-      upDate: false
+      upDate: false,
+      username: '',
+      country: ''
     }
   },
   components: {
@@ -252,6 +257,9 @@ export default {
       return moment(this.user.birthday, 'YYYY-MM-DD')
         .fromNow()
         .slice(0, 2)
+    },
+    countriesValues () {
+      return Object.values(countries)
     },
     skillsId () {
       return this.skills.map(s => s._id)
@@ -270,6 +278,8 @@ export default {
     },
     async getUser () {
       this.user = await APIServices.getUser()
+      this.username = this.user.name
+      this.country = this.user.country
     },
     checkSkills () {
       this.user.skills.map(s => {
@@ -282,6 +292,18 @@ export default {
       localStorage.clear()
       this.$router.push('/')
       window.location.reload()
+    },
+    async save () {
+      console.log('hi')
+      const userInfo = {
+        name: this.username,
+        country: this.country
+      }
+      await APIServices.updateUser(userInfo)
+      localStorage.setItem('name', userInfo.name)
+      this.hasSaved = true
+      setTimeout(() => { this.upDate = false }, 3000)
+      await this.getUser()
     }
   },
   async created () {

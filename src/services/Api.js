@@ -102,6 +102,17 @@ export default {
       }
     )
     return response.data
+  },
+  async updateUser (userInfo) {
+    const response = await API.put('/me/profile', {
+      ...userInfo
+    },
+    {
+      headers: {
+        token: localStorage.getItem('token')
+      }
+    })
+    return response.data
   }
 
 }
